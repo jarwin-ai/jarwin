@@ -1,0 +1,115 @@
+{
+  "maturity_levels": {
+    "1": {
+      "name": "Foundation",
+      "subtitle": "MVP / Getting Started",
+      "description": "Single-region, simple architecture. Focus on shipping fast.",
+      "characteristics": {
+        "deployment": "Single region, single availability zone",
+        "architecture": "Monolith or simple modular app",
+        "ci_cd": "Basic CI (build + test) or manual deploys",
+        "monitoring": "Uptime checks, basic error logging",
+        "database": "Single database instance",
+        "security": "Basic auth, HTTPS, firewall rules",
+        "team_size": "1-5 engineers"
+      },
+      "required_components": ["compute", "relational_database", "backend_framework", "frontend_framework", "auth", "ci_cd"],
+      "optional_components": ["caching", "monitoring"],
+      "typical_monthly_cost": {"oss_path": "50-200", "licensed_path": "200-800"},
+      "transition_triggers": {
+        "users_exceed": 10000,
+        "team_exceeds": 8,
+        "latency_p99_exceeds_ms": 500,
+        "deploys_per_week_exceed": 5
+      }
+    },
+    "2": {
+      "name": "Structured",
+      "subtitle": "Growth Phase",
+      "description": "Multi-AZ, automated pipelines, proper monitoring. Built to handle growth.",
+      "characteristics": {
+        "deployment": "Multi-AZ within single region",
+        "architecture": "Modular monolith or initial services",
+        "ci_cd": "Automated CI/CD with staging environment",
+        "monitoring": "APM, structured logging, basic alerting",
+        "database": "Primary + read replicas, connection pooling",
+        "security": "RBAC, secrets management, vulnerability scanning",
+        "team_size": "5-20 engineers"
+      },
+      "required_components": ["compute", "networking", "relational_database", "caching", "backend_framework", "frontend_framework", "auth", "ci_cd", "secret_management", "monitoring", "vulnerability_scanning"],
+      "optional_components": ["message_queue"],
+      "typical_monthly_cost": {"oss_path": "500-2000", "licensed_path": "2000-8000"},
+      "transition_triggers": {
+        "users_exceed": 100000,
+        "team_exceeds": 20,
+        "latency_p99_exceeds_ms": 300,
+        "deploys_per_week_exceed": 15,
+        "regions_needed": 2
+      }
+    },
+    "3": {
+      "name": "Scalable",
+      "subtitle": "Scale Phase",
+      "description": "Multi-region, microservices, distributed tracing. Built for serious scale.",
+      "characteristics": {
+        "deployment": "Multi-region active-passive",
+        "architecture": "Microservices with service mesh",
+        "ci_cd": "GitOps, automated rollbacks, feature flags",
+        "monitoring": "Distributed tracing, centralized logging, SLO dashboards",
+        "database": "Polyglot persistence, event streaming, data warehouse",
+        "security": "Zero-trust, mutual TLS, SIEM integration",
+        "team_size": "20-100 engineers"
+      },
+      "required_components": ["compute", "networking", "relational_database", "caching", "message_queue", "backend_framework", "frontend_framework", "auth", "ci_cd", "secret_management", "monitoring", "vulnerability_scanning"],
+      "optional_components": [],
+      "typical_monthly_cost": {"oss_path": "3000-10000", "licensed_path": "10000-50000"},
+      "transition_triggers": {
+        "users_exceed": 1000000,
+        "team_exceeds": 50,
+        "latency_p99_exceeds_ms": 200,
+        "sla_required_percent": 99.95,
+        "regions_needed": 3
+      }
+    },
+    "4": {
+      "name": "Resilient",
+      "subtitle": "Enterprise Phase",
+      "description": "Active-active, event sourcing, progressive delivery. Built for zero downtime.",
+      "characteristics": {
+        "deployment": "Multi-region active-active with global load balancing",
+        "architecture": "Domain-driven microservices, event sourcing, CQRS",
+        "ci_cd": "Progressive delivery (canary, blue-green), automated rollback",
+        "monitoring": "Full observability (metrics, logs, traces, profiles), AI alerting",
+        "database": "Global distributed database, real-time analytics, data mesh",
+        "security": "Automated compliance, chaos engineering, threat modeling",
+        "team_size": "50-500 engineers"
+      },
+      "required_components": ["compute", "networking", "relational_database", "caching", "message_queue", "backend_framework", "frontend_framework", "auth", "ci_cd", "secret_management", "monitoring", "vulnerability_scanning"],
+      "optional_components": [],
+      "typical_monthly_cost": {"oss_path": "15000-50000", "licensed_path": "50000-200000"},
+      "transition_triggers": {
+        "users_exceed": 10000000,
+        "team_exceeds": 200,
+        "sla_required_percent": 99.99
+      }
+    },
+    "5": {
+      "name": "Optimized",
+      "subtitle": "Market Leader",
+      "description": "Global edge, self-healing, AI-driven operations. Peak engineering.",
+      "characteristics": {
+        "deployment": "Global edge with intelligent routing",
+        "architecture": "Self-healing, auto-scaling, chaos-tested",
+        "ci_cd": "Fully automated with AI-driven decisions",
+        "monitoring": "AI anomaly detection, predictive alerting, auto-remediation",
+        "database": "Custom-built or heavily modified for competitive advantage",
+        "security": "Automated red-teaming, real-time threat hunting",
+        "team_size": "200+ engineers"
+      },
+      "required_components": ["compute", "networking", "relational_database", "caching", "message_queue", "backend_framework", "frontend_framework", "auth", "ci_cd", "secret_management", "monitoring", "vulnerability_scanning"],
+      "optional_components": [],
+      "typical_monthly_cost": {"oss_path": "50000-200000", "licensed_path": "200000-1000000"},
+      "transition_triggers": {}
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "categories": {
+    "infrastructure": {
+      "compute": {
+        "description": "Compute resources for running applications",
+        "tools": [
+          {"name": "AWS EC2", "type": "licensed", "pricing": "pay-per-use", "min_cost_monthly": 20, "maturity_min": 1, "compliance": ["SOC2", "HIPAA", "PCI-DSS", "GDPR", "ISO27001"], "scalability": "very_high", "learning_curve": 0.6, "vendor_health": 0.95},
+          {"name": "Google Compute Engine", "type": "licensed", "pricing": "pay-per-use", "min_cost_monthly": 20, "maturity_min": 1, "compliance": ["SOC2", "HIPAA", "PCI-DSS", "GDPR", "ISO27001"], "scalability": "very_high", "learning_curve": 0.6, "vendor_health": 0.95},
+          {"name": "Azure VMs", "type": "licensed", "pricing": "pay-per-use", "min_cost_monthly": 20, "maturity_min": 1, "compliance": ["SOC2", "HIPAA", "PCI-DSS", "GDPR", "ISO27001", "FedRAMP"], "scalability": "very_high", "learning_curve": 0.6, "vendor_health": 0.95},
+          {"name": "DigitalOcean Droplets", "type": "licensed", "pricing": "subscription", "min_cost_monthly": 5, "maturity_min": 1, "compliance": ["SOC2"], "scalability": "medium", "learning_curve": 0.3, "vendor_health": 0.8},
+          {"name": "Docker (self-hosted)", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 1, "compliance": [], "scalability": "medium", "learning_curve": 0.5, "community_health": 0.95, "github_stars": 68000},
+          {"name": "Kubernetes (self-managed)", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 3, "compliance": [], "scalability": "very_high", "learning_curve": 0.85, "community_health": 0.98, "github_stars": 108000},
+          {"name": "K3s", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "high", "learning_curve": 0.6, "community_health": 0.9, "github_stars": 27000}
+        ]
+      },
+      "networking": {
+        "description": "Load balancers, DNS, CDN, service mesh",
+        "tools": [
+          {"name": "AWS ALB/NLB", "type": "licensed", "pricing": "pay-per-use", "min_cost_monthly": 20, "maturity_min": 2, "compliance": ["SOC2", "HIPAA", "PCI-DSS"], "scalability": "very_high", "learning_curve": 0.5, "vendor_health": 0.95},
+          {"name": "Cloudflare", "type": "licensed", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 1, "compliance": ["SOC2", "GDPR", "PCI-DSS"], "scalability": "very_high", "learning_curve": 0.3, "vendor_health": 0.92},
+          {"name": "Nginx", "type": "oss", "license": "BSD-2-Clause", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 1, "compliance": [], "scalability": "high", "learning_curve": 0.5, "community_health": 0.9, "github_stars": 24000},
+          {"name": "Traefik", "type": "oss", "license": "MIT", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "high", "learning_curve": 0.6, "community_health": 0.88, "github_stars": 49000},
+          {"name": "Istio", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 3, "compliance": [], "scalability": "very_high", "learning_curve": 0.85, "community_health": 0.85, "github_stars": 35000},
+          {"name": "Linkerd", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 3, "compliance": [], "scalability": "high", "learning_curve": 0.7, "community_health": 0.82, "github_stars": 10000}
+        ]
+      }
+    },
+    "platform": {
+      "ci_cd": {
+        "description": "Continuous Integration and Delivery pipelines",
+        "tools": [
+          {"name": "GitHub Actions", "type": "licensed", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 1, "compliance": ["SOC2"], "scalability": "high", "learning_curve": 0.4, "vendor_health": 0.95},
+          {"name": "GitLab CI/CD", "type": "oss", "license": "MIT", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 1, "compliance": ["SOC2", "HIPAA"], "scalability": "high", "learning_curve": 0.5, "community_health": 0.92, "github_stars": 24000},
+          {"name": "Jenkins", "type": "oss", "license": "MIT", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "high", "learning_curve": 0.7, "community_health": 0.8, "github_stars": 23000},
+          {"name": "ArgoCD", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 3, "compliance": [], "scalability": "high", "learning_curve": 0.7, "community_health": 0.9, "github_stars": 17000},
+          {"name": "CircleCI", "type": "licensed", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 2, "compliance": ["SOC2", "FedRAMP"], "scalability": "high", "learning_curve": 0.4, "vendor_health": 0.82}
+        ]
+      },
+      "secret_management": {
+        "description": "Managing secrets, credentials, and keys",
+        "tools": [
+          {"name": "HashiCorp Vault", "type": "oss", "license": "BSL-1.1", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 3, "compliance": ["SOC2", "HIPAA", "PCI-DSS"], "scalability": "very_high", "learning_curve": 0.75, "community_health": 0.88, "github_stars": 30000},
+          {"name": "AWS Secrets Manager", "type": "licensed", "pricing": "pay-per-use", "min_cost_monthly": 5, "maturity_min": 2, "compliance": ["SOC2", "HIPAA", "PCI-DSS", "ISO27001"], "scalability": "very_high", "learning_curve": 0.3, "vendor_health": 0.95},
+          {"name": "SOPS", "type": "oss", "license": "MPL-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "medium", "learning_curve": 0.5, "community_health": 0.82, "github_stars": 16000},
+          {"name": "Doppler", "type": "licensed", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 1, "compliance": ["SOC2", "GDPR"], "scalability": "high", "learning_curve": 0.2, "vendor_health": 0.78}
+        ]
+      }
+    },
+    "data": {
+      "relational_database": {
+        "description": "Primary relational data storage",
+        "tools": [
+          {"name": "PostgreSQL", "type": "oss", "license": "PostgreSQL", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 1, "compliance": [], "scalability": "high", "learning_curve": 0.5, "community_health": 0.97, "github_stars": 15000},
+          {"name": "MySQL", "type": "oss", "license": "GPL-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 1, "compliance": [], "scalability": "high", "learning_curve": 0.4, "community_health": 0.85, "github_stars": 10000},
+          {"name": "AWS RDS/Aurora", "type": "licensed", "pricing": "pay-per-use", "min_cost_monthly": 30, "maturity_min": 2, "compliance": ["SOC2", "HIPAA", "PCI-DSS", "ISO27001"], "scalability": "very_high", "learning_curve": 0.4, "vendor_health": 0.95},
+          {"name": "PlanetScale", "type": "licensed", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 2, "compliance": ["SOC2", "HIPAA"], "scalability": "very_high", "learning_curve": 0.3, "vendor_health": 0.8},
+          {"name": "CockroachDB", "type": "oss", "license": "BSL-1.1", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 3, "compliance": ["SOC2", "HIPAA"], "scalability": "very_high", "learning_curve": 0.6, "community_health": 0.85, "github_stars": 30000},
+          {"name": "Supabase (Postgres)", "type": "oss", "license": "Apache-2.0", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 1, "compliance": ["SOC2", "HIPAA"], "scalability": "high", "learning_curve": 0.3, "community_health": 0.92, "github_stars": 70000}
+        ]
+      },
+      "caching": {
+        "description": "In-memory caching for performance",
+        "tools": [
+          {"name": "Redis", "type": "oss", "license": "RSALv2", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "very_high", "learning_curve": 0.4, "community_health": 0.9, "github_stars": 65000},
+          {"name": "Memcached", "type": "oss", "license": "BSD-3-Clause", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "high", "learning_curve": 0.3, "community_health": 0.7, "github_stars": 13000},
+          {"name": "AWS ElastiCache", "type": "licensed", "pricing": "pay-per-use", "min_cost_monthly": 15, "maturity_min": 2, "compliance": ["SOC2", "HIPAA", "PCI-DSS"], "scalability": "very_high", "learning_curve": 0.3, "vendor_health": 0.95},
+          {"name": "Upstash Redis", "type": "licensed", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 1, "compliance": ["SOC2"], "scalability": "high", "learning_curve": 0.2, "vendor_health": 0.8}
+        ]
+      },
+      "message_queue": {
+        "description": "Asynchronous messaging and event streaming",
+        "tools": [
+          {"name": "Apache Kafka", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 3, "compliance": [], "scalability": "very_high", "learning_curve": 0.8, "community_health": 0.95, "github_stars": 28000},
+          {"name": "RabbitMQ", "type": "oss", "license": "MPL-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "high", "learning_curve": 0.5, "community_health": 0.88, "github_stars": 12000},
+          {"name": "AWS SQS/SNS", "type": "licensed", "pricing": "pay-per-use", "min_cost_monthly": 1, "maturity_min": 1, "compliance": ["SOC2", "HIPAA", "PCI-DSS"], "scalability": "very_high", "learning_curve": 0.3, "vendor_health": 0.95},
+          {"name": "Confluent Cloud", "type": "licensed", "pricing": "pay-per-use", "min_cost_monthly": 50, "maturity_min": 3, "compliance": ["SOC2", "HIPAA", "PCI-DSS", "ISO27001"], "scalability": "very_high", "learning_curve": 0.6, "vendor_health": 0.88}
+        ]
+      }
+    },
+    "observability": {
+      "monitoring": {
+        "description": "Metrics, logging, tracing, and alerting",
+        "tools": [
+          {"name": "Prometheus + Grafana", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "high", "learning_curve": 0.6, "community_health": 0.95, "github_stars": 54000},
+          {"name": "Datadog", "type": "licensed", "pricing": "subscription", "min_cost_monthly": 100, "maturity_min": 2, "compliance": ["SOC2", "HIPAA", "PCI-DSS", "ISO27001"], "scalability": "very_high", "learning_curve": 0.4, "vendor_health": 0.92},
+          {"name": "New Relic", "type": "licensed", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 2, "compliance": ["SOC2", "HIPAA", "FedRAMP"], "scalability": "very_high", "learning_curve": 0.4, "vendor_health": 0.88},
+          {"name": "ELK Stack", "type": "oss", "license": "SSPL/Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 3, "compliance": [], "scalability": "high", "learning_curve": 0.7, "community_health": 0.85, "github_stars": 68000},
+          {"name": "OpenTelemetry + Jaeger", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 3, "compliance": [], "scalability": "very_high", "learning_curve": 0.7, "community_health": 0.92, "github_stars": 28000},
+          {"name": "Sentry", "type": "oss", "license": "FSL", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 1, "compliance": ["SOC2", "GDPR"], "scalability": "high", "learning_curve": 0.3, "community_health": 0.9, "github_stars": 38000}
+        ]
+      }
+    },
+    "security": {
+      "auth": {
+        "description": "Authentication and authorization",
+        "tools": [
+          {"name": "Keycloak", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "high", "learning_curve": 0.7, "community_health": 0.9, "github_stars": 21000},
+          {"name": "Auth0 (Okta)", "type": "licensed", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 1, "compliance": ["SOC2", "HIPAA", "GDPR", "PCI-DSS"], "scalability": "very_high", "learning_curve": 0.3, "vendor_health": 0.9},
+          {"name": "AWS Cognito", "type": "licensed", "pricing": "pay-per-use", "min_cost_monthly": 0, "maturity_min": 1, "compliance": ["SOC2", "HIPAA", "PCI-DSS"], "scalability": "very_high", "learning_curve": 0.5, "vendor_health": 0.95},
+          {"name": "Supertokens", "type": "oss", "license": "Apache-2.0", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 1, "compliance": ["SOC2"], "scalability": "high", "learning_curve": 0.3, "community_health": 0.82, "github_stars": 12000},
+          {"name": "Clerk", "type": "licensed", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 1, "compliance": ["SOC2", "GDPR"], "scalability": "high", "learning_curve": 0.2, "vendor_health": 0.82}
+        ]
+      },
+      "vulnerability_scanning": {
+        "description": "Security scanning and SAST/DAST",
+        "tools": [
+          {"name": "Trivy", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "high", "learning_curve": 0.3, "community_health": 0.92, "github_stars": 22000},
+          {"name": "Snyk", "type": "licensed", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 2, "compliance": ["SOC2", "ISO27001"], "scalability": "very_high", "learning_curve": 0.3, "vendor_health": 0.88},
+          {"name": "SonarQube", "type": "oss", "license": "LGPL-3.0", "pricing": "freemium", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "high", "learning_curve": 0.5, "community_health": 0.85, "github_stars": 9000},
+          {"name": "OWASP ZAP", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "medium", "learning_curve": 0.6, "community_health": 0.8, "github_stars": 12000}
+        ]
+      }
+    },
+    "application": {
+      "backend_framework": {
+        "description": "Server-side application frameworks",
+        "tools": [
+          {"name": "Node.js (Express/Fastify)", "type": "oss", "license": "MIT", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 1, "compliance": [], "scalability": "high", "learning_curve": 0.4, "community_health": 0.95, "github_stars": 105000},
+          {"name": "Python (FastAPI/Django)", "type": "oss", "license": "MIT/BSD", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 1, "compliance": [], "scalability": "high", "learning_curve": 0.4, "community_health": 0.95, "github_stars": 75000},
+          {"name": "Go (Gin/Fiber)", "type": "oss", "license": "MIT", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "very_high", "learning_curve": 0.6, "community_health": 0.9, "github_stars": 77000},
+          {"name": "Java (Spring Boot)", "type": "oss", "license": "Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "very_high", "learning_curve": 0.7, "community_health": 0.92, "github_stars": 74000},
+          {"name": "Rust (Actix/Axum)", "type": "oss", "license": "MIT/Apache-2.0", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 3, "compliance": [], "scalability": "very_high", "learning_curve": 0.85, "community_health": 0.88, "github_stars": 21000}
+        ]
+      },
+      "frontend_framework": {
+        "description": "Client-side UI frameworks",
+        "tools": [
+          {"name": "React (Next.js)", "type": "oss", "license": "MIT", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 1, "compliance": [], "scalability": "very_high", "learning_curve": 0.5, "community_health": 0.97, "github_stars": 124000},
+          {"name": "Vue.js (Nuxt)", "type": "oss", "license": "MIT", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 1, "compliance": [], "scalability": "high", "learning_curve": 0.4, "community_health": 0.9, "github_stars": 47000},
+          {"name": "Svelte (SvelteKit)", "type": "oss", "license": "MIT", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 1, "compliance": [], "scalability": "high", "learning_curve": 0.3, "community_health": 0.85, "github_stars": 78000},
+          {"name": "Angular", "type": "oss", "license": "MIT", "pricing": "free", "min_cost_monthly": 0, "maturity_min": 2, "compliance": [], "scalability": "very_high", "learning_curve": 0.7, "community_health": 0.88, "github_stars": 95000}
+        ]
+      }
+    }
+  }
+}
