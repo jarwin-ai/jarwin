@@ -1,7 +1,9 @@
 """
-Jarwin - Adaptive Architecture Blueprint System
+Jarwin V2 - Adaptive Architecture Blueprint System
 An AI-powered platform that generates E2E architecture recommendations
 with dual-path (OSS vs Licensed) comparison and compliance mapping.
+
+V2 Features: Chat interface, LLM integration, Agent memory, Agent collaboration
 """
 
 import streamlit as st
@@ -11,6 +13,10 @@ from agents.maturity_agent import assess_maturity
 from agents.tool_agent import recommend_tools
 from agents.compliance_agent import check_compliance
 from agents.blueprint_agent import generate_blueprint
+from agents.chat_agent import generate_chat_response
+from agents.collaboration import validate_recommendations
+from agents.memory import save_company, list_companies, save_session
+from agents.llm_engine import get_llm
 
 # Page config
 st.set_page_config(
@@ -69,6 +75,20 @@ def main():
     # Header
     st.markdown('<p class="main-header">Jarwin</p>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Adaptive Architecture Blueprint System — Your AI Architecture Advisor</p>', unsafe_allow_html=True)
+    
+    # LLM Status
+    llm = get_llm()
+    if llm.available:
+        st.caption(f"🟢 LLM Connected ({llm.provider})")
+    else:
+        st.caption("⚪ Running in structured mode (install Ollama for chat AI)")
+    
+    # Mode selection
+    mode = st.radio("Mode", ["💬 Chat Mode", "📋 Quick Mode (Form)"], horizontal=True, label_visibility="collapsed")
+    
+    if mode == "💬 Chat Mode":
+        run_chat_mode()
+        return
     
     # Sidebar - Input Form
     with st.sidebar:
@@ -153,17 +173,54 @@ def main():
         # Store in session
         st.session_state["blueprint"] = blueprint
         st.session_state["generated"] = True
+        st.session_state["last_context"] = context
+        st.session_state.pop("validation", None)  # Reset validation for new run
+        
+        # Save to memory
+        company_id = f"{industry}_{growth_stage}_{team_size}"
+        save_company(company_id, f"{industry.title()} ({team_size} engineers)", context)
+        save_session(company_id, blueprint, [])
     
     # Display results
     if st.session_state.get("generated"):
         blueprint = st.session_state["blueprint"]
+        
+        # Run V2 agent collaboration (validation)
+        if "validation" not in st.session_state:
+            context = st.session_state.get("last_context", {})
+            recommendations = blueprint.get("architecture_recommendations", [])
+            compliance = blueprint.get("compliance_report", {})
+            validation = validate_recommendations(context, recommendations, compliance)
+            st.session_state["validation"] = validation
+        
         display_results(blueprint)
+        
+        # Show validation results
+        validation = st.session_state.get("validation", {})
+        if validation.get("issues_found", 0) > 0:
+            with st.expander(f"🔍 Agent Validation ({validation['issues_found']} issue(s) found)", expanded=False):
+                for issue in validation.get("issues", []):
+                    severity_icon = {"HIGH": "🔴", "MEDIUM": "🟡", "LOW": "🟢"}.get(issue["severity"], "⚪")
+                    st.write(f"{severity_icon} **{issue['type'].title()}**: {issue['message']}")
+                if validation.get("improvements"):
+                    st.markdown("**Improvements suggested:**")
+                    for imp in validation["improvements"]:
+                        st.write(f"→ {imp}")
     else:
         display_landing()
 
 
 def display_landing():
     """Show landing page when no blueprint generated yet."""
+
+    # Show saved companies
+    companies = list_companies()
+    if companies:
+        st.markdown("### 📂 Previous Sessions")
+        for comp in companies[:3]:
+            st.caption(f"• {comp['name']} (last: {comp['updated_at'][:10]})")
+        st.markdown("---")
+
     col1, col2, col3 = st.columns(3)
     
     with col1:
@@ -181,12 +238,77 @@ def display_landing():
     st.markdown("---")
     st.markdown("### How it works")
     st.markdown("""
-    1. **Fill in your company details** in the sidebar
-    2. **Click 'Generate Architecture Blueprint'**
-    3. **Get a complete E2E architecture** with phased roadmap, tool recommendations, and compliance report
+    1. **Fill in your company details** in the sidebar (Quick Mode) OR **chat with Jarwin** (Chat Mode)
+    2. **Get a complete E2E architecture** with phased roadmap, tool recommendations, and compliance report
+    3. **Download the report** or ask follow-up questions
     
     Built with real tool data, pricing, and compliance frameworks. Not AI hallucinations.
     """)
+
+
+def run_chat_mode():
+    """Chat mode — conversational interface with Jarwin."""
+    
+    # Initialize chat history
+    if "chat_messages" not in st.session_state:
+        st.session_state.chat_messages = []
+    
+    if "chat_context" not in st.session_state:
+        st.session_state.chat_context = None
+    
+    # Display chat messages
+    for msg in st.session_state.chat_messages:
+        with st.chat_message(msg["role"], avatar="🏗️" if msg["role"] == "assistant" else None):
+            st.markdown(msg["content"])
+    
+    # Welcome message
+    if not st.session_state.chat_messages:
+        welcome = """Hey! I'm **Jarwin**, your AI Architecture Advisor. 👋
+
+I help companies design their complete technology stack — from databases to deployment.
+
+**To get started, tell me about your company:**
+- What **industry** are you in?
+- How big is your **engineering team**?
+- What's your **monthly tech budget**?
+- Any **compliance** requirements (HIPAA, PCI-DSS, SOC2)?
+
+Or just describe what you're building and I'll figure out the rest!
+
+💡 *Tip: Say "generate" or "recommend" when you want me to create your architecture blueprint.*"""
+        
+        with st.chat_message("assistant", avatar="🏗️"):
+            st.markdown(welcome)
+        st.session_state.chat_messages.append({"role": "assistant", "content": welcome})
+    
+    # Chat input
+    if user_input := st.chat_input("Tell me about your company or ask anything..."):
+        # Add user message
+        st.session_state.chat_messages.append({"role": "user", "content": user_input})
+        with st.chat_message("user"):
+            st.markdown(user_input)
+        
+        # Generate response
+        with st.chat_message("assistant", avatar="🏗️"):
+            with st.spinner("Thinking..."):
+                result = generate_chat_response(
+                    st.session_state.chat_messages,
+                    st.session_state.chat_context
+                )
+                
+                response = result["response"]
+                st.markdown(response)
+                
+                # Update context if extracted
+                if result.get("context"):
+                    st.session_state.chat_context = result["context"]
+                
+                # Store blueprint if generated
+                if result.get("blueprint"):
+                    st.session_state["blueprint"] = result["blueprint"]
+                    st.session_state["generated"] = True
+        
+        st.session_state.chat_messages.append({"role": "assistant", "content": response})
 
 
 def display_results(blueprint):
