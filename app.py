@@ -99,12 +99,12 @@ def main():
     st.markdown('<p class="main-header">Jarwin</p>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Adaptive Architecture Blueprint System — Your AI Architecture Advisor</p>', unsafe_allow_html=True)
     
-    # LLM Status
+    # LLM Status (hidden from users - not relevant)
     llm = get_llm()
     if llm.available:
-        st.caption(f"🟢 LLM Connected ({llm.provider})")
+        pass  # Don't show LLM status to users
     else:
-        st.caption("⚪ Running in structured mode (install Ollama for chat AI)")
+        pass  # Don't show LLM status to users
     
     # Pro badge
     if st.session_state["is_pro"]:
