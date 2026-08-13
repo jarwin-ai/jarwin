@@ -15,6 +15,7 @@ from agents.collaboration import validate_recommendations
 from agents.memory import save_company, list_companies, save_session
 from agents.llm_engine import get_llm
 from agents.analytics import track_event, get_stats
+from agents.e2e_architect import generate_full_e2e, E2E_SECTIONS
 
 # Page config
 st.set_page_config(
@@ -528,7 +529,7 @@ def display_results(blueprint):
     st.info(f"{compliance_color} Compliance Status: **{blueprint['compliance_report']['overall_status']}** | Frameworks: {', '.join(blueprint['compliance_report']['applicable_frameworks'])}")
     
     # Tabs for different views
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(["🗺️ Roadmap", "🛠️ Tool Recommendations", "✅ Compliance", "💰 Cost Analysis", "📋 Full Report"])
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["🗺️ Roadmap", "🛠️ Tool Recommendations", "🏗️ Full Architecture", "✅ Compliance", "💰 Cost Analysis", "📋 Full Report"])
     
     with tab1:
         display_roadmap(blueprint)
@@ -537,12 +538,15 @@ def display_results(blueprint):
         display_tools(blueprint)
     
     with tab3:
-        display_compliance(blueprint)
+        display_e2e_architecture(blueprint)
     
     with tab4:
-        display_costs(blueprint)
+        display_compliance(blueprint)
     
     with tab5:
+        display_costs(blueprint)
+    
+    with tab6:
         display_full_report(blueprint)
 
 
@@ -702,6 +706,44 @@ def display_costs(blueprint):
     savings = costs.get("savings_vs_licensed", {})
     if savings.get("annual", 0) > 0:
         st.success(f"💰 **You save ${savings['annual']:,.0f}/year** with the recommended path vs. all-licensed")
+
+
+def display_e2e_architecture(blueprint):
+    """Display full E2E architecture — locked for free, unlocked for Pro."""
+    st.subheader("Complete E2E Architecture Blueprint")
+    
+    is_pro = st.session_state.get("is_pro", False)
+    
+    # Generate E2E data
+    context = st.session_state.get("last_context", {})
+    maturity = blueprint.get("maturity_assessment", {})
+    
+    if context and maturity:
+        e2e = generate_full_e2e(context, maturity)
+    else:
+        st.warning("Generate a blueprint first to see full architecture.")
+        return
+    
+    if is_pro:
+        # Pro users see everything
+        for section_key, section_meta in E2E_SECTIONS.items():
+            with st.expander(f"{section_meta['icon']} {section_meta['title']}", expanded=False):
+                section_data = e2e.get(section_key, {})
+                for key, value in section_data.items():
+                    if key != "preview":
+                        st.write(f"**{key.replace('_', ' ').title()}:** {value}")
+    else:
+        # Free users see locked previews
+        st.info("💡 **11 architecture sections available.** Upgrade to Jarwin Pro to unlock full details.")
+        st.markdown("")
+        
+        for section_key, section_meta in E2E_SECTIONS.items():
+            section_data = e2e.get(section_key, {})
+            preview = section_data.get("preview", "")
+            st.markdown(f"🔒 **{section_meta['icon']} {section_meta['title']}** — _{preview}_")
+        
+        st.markdown("")
+        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;background:linear-gradient(135deg,#6366f1,#a855f7);color:white;padding:10px 24px;border-radius:8px;font-weight:600;">⭐ Upgrade to Jarwin Pro — Unlock All Sections</span>', unsafe_allow_html=True)
 
 
 def display_full_report(blueprint):
