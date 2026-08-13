@@ -164,11 +164,15 @@ def main():
     else:
         free_left = max(0, 1 - st.session_state["usage_count"])
         if free_left > 0:
-            st.caption(f"Free Plan — {free_left} blueprint remaining | ⭐ Upgrade to Jarwin Pro → Contact: **krishnask921@gmail.com**")
+            st.caption(f"Free Plan — {free_left} blueprint remaining")
         else:
-            st.warning("⚠️ Free limit reached. Upgrade to Jarwin Pro → Contact: **krishnask921@gmail.com**")
+            st.warning("⚠️ Free limit reached. Upgrade to Jarwin Pro for unlimited access.")
             show_pro_upgrade()
             return
+        
+        # Upgrade button that reveals email on click
+        if st.button("⭐ Upgrade to Jarwin Pro"):
+            st.info("📧 To upgrade, email us at: **krishnask921@gmail.com** with subject 'Jarwin Pro'. We'll send you the access key within 1 hour.")
     
     # Mode selection
     mode = st.radio("Mode", ["💬 Chat Mode", "📋 Quick Mode (Form)"], horizontal=True, label_visibility="collapsed")
