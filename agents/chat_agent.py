@@ -249,7 +249,7 @@ Write 3-5 paragraphs. Be specific about tool names and costs. Be conversational.
     if user_inputs.get("cloud_preference") != "any":
         extracted_info.append(f"Cloud: **{user_inputs['cloud_preference'].upper()}**")
     
-    if extracted_info and not wants_architecture:
+    if extracted_info:
         info_text = ", ".join(extracted_info)
         missing_text = "\n".join([f"- {f}" for f in missing_fields[:3]])
         
@@ -261,82 +261,221 @@ To generate your architecture blueprint, I still need:
 Or say **"generate"** and I'll work with what I have (using defaults for the rest)."""
         return {"response": response, "context": user_inputs, "blueprint": None}
     
-    # General conversation - use LLM if available
-    if llm.available:
-        conversation_text = "\n".join([f"{m['role']}: {m['content']}" for m in messages[-10:]])
-        response = llm.generate(
-            prompt=f"Conversation so far:\n{conversation_text}\n\nRespond as Jarwin:",
-            system_prompt=SYSTEM_PROMPT,
-            temperature=0.7
-        )
-        if response:
-            return {"response": response, "context": None, "blueprint": None}
-    
-    # Fallback: rule-based responses
-    return {"response": generate_fallback_response(last_message, messages), "context": user_inputs, "blueprint": None}
+    # No context extracted — answer the specific question using fallback
+    fallback = generate_fallback_response(last_message, messages)
+    return {"response": fallback, "context": user_inputs, "blueprint": None}
 
 
 def generate_fallback_response(message: str, messages: list) -> str:
-    """Generate response without LLM using rules."""
+    """Generate smart response without LLM using enhanced rules."""
     msg_lower = message.lower()
     
     if len(messages) <= 1:
-        return """Hey! I'm Jarwin, your AI Architecture Advisor. 👋
+        return """Hey! I'm **Jarwin AI**, your Architecture Advisor. 👋
 
 I help companies design their complete technology stack — from databases to deployment.
 
-To get started, tell me about your company:
-- What **industry** are you in?
-- How big is your **engineering team**?
-- What's your **monthly tech budget**?
-- Any **compliance** requirements (HIPAA, PCI-DSS, SOC2)?
+To get started, just tell me:
+1. What **industry** are you in?
+2. How big is your **engineering team**?
+3. What's your **monthly tech budget**?
+4. How many **users** do you expect?
 
-Or just describe what you're building and I'll figure out the rest!"""
+Or just describe your project and I'll ask the right questions!"""
     
-    if "hello" in msg_lower or "hi" in msg_lower or "hey" in msg_lower:
-        return "Hey! Tell me about what you're building and I'll help you design the architecture."
+    if msg_lower.strip() in ["hello", "hi", "hey", "hi there", "hello there", "hey there"]:
+        return "Hey! What are you building? Tell me your industry and team size and I'll design the perfect architecture for you."
     
-    if "help" in msg_lower:
+    if "help" in msg_lower or "what can you do" in msg_lower:
         return """I can help you with:
 
-1. **Full architecture blueprint** — tell me your industry, team size, and budget
-2. **Tool comparison** — "Should I use PostgreSQL or MongoDB?"
-3. **Compliance guidance** — "What do I need for HIPAA compliance?"
-4. **Cost optimization** — "How to reduce my cloud bill?"
+**Full Architecture Design:**
+→ Tell me your industry, team size, budget, and I'll design your complete stack
 
-What would you like help with?"""
-    
-    if any(w in msg_lower for w in ["database", "db", "postgres", "mysql", "mongo"]):
-        return """For databases, I recommend based on your needs:
+**Tool Comparisons:**
+→ "PostgreSQL vs MySQL for fintech?"
+→ "Best monitoring tool for a 10-person team?"
 
-**Relational (structured data):**
-- 🟢 OSS: PostgreSQL (free, powerful, scales well)
-- 🔵 Licensed: AWS Aurora ($30+/mo, managed, auto-scaling)
+**Compliance Guidance:**
+→ "What do I need for HIPAA compliance?"
+→ "Is Supabase SOC2 compliant?"
 
-**Document/NoSQL:**
-- 🟢 OSS: MongoDB Community (free, flexible schema)
-- 🔵 Licensed: MongoDB Atlas ($0-57+/mo, fully managed)
+**Cost Optimization:**
+→ "How to keep infra costs under $3000/month?"
 
-Tell me more about your use case (data size, read/write patterns, team expertise) and I'll narrow it down."""
+Just ask!"""
 
-    if any(w in msg_lower for w in ["compliance", "hipaa", "pci", "gdpr", "soc"]):
-        return """Compliance requirements significantly affect your architecture choices. Here's a quick overview:
+    # Database questions
+    if any(w in msg_lower for w in ["database", "db", "postgres", "mysql", "mongo", "supabase", "firebase"]):
+        if "vs" in msg_lower:
+            return """**PostgreSQL vs MySQL:**
 
-- **HIPAA** (Healthcare): Need encryption at rest + transit, audit logging, BAA with vendors
-- **PCI-DSS** (Payments): Network segmentation, WAF, vulnerability scanning, encrypted card data
-- **SOC2** (SaaS): Access controls, change management, monitoring, incident response
-- **GDPR** (EU users): Data residency in EU, consent management, right to erasure
+| Factor | PostgreSQL | MySQL |
+|--------|-----------|-------|
+| Complex queries | Better (CTEs, window functions) | Basic |
+| JSON support | Excellent (JSONB) | Limited |
+| Scalability | High (with partitioning) | High (simpler sharding) |
+| Learning curve | Medium | Easier |
+| Best for | Fintech, analytics, complex data | Simple CRUD, blogs, CMS |
 
-Which frameworks apply to you? I'll filter my recommendations to only compliant tools."""
+**My recommendation:** PostgreSQL for most modern apps. MySQL only if team already knows it well.
 
-    # Default: ask for more details
-    return """Thanks for that info! To give you the best architecture recommendation, I still need:
+Want me to generate a full architecture? Tell me your industry and team size."""
+        return """**Database Recommendations:**
 
-- **Industry**: What sector are you in?
-- **Scale**: How many users do you expect?
-- **Budget**: Monthly tech spend?
+- **PostgreSQL** → Best all-rounder. Free, scales well, great for fintech/SaaS
+- **Supabase** → PostgreSQL + auth + APIs built-in. Best for MVPs and small teams
+- **AWS Aurora** → Managed PostgreSQL. Best when team is small but needs enterprise reliability
+- **PlanetScale** → Serverless MySQL. Best for global apps with auto-scaling
 
-Or just say **"generate"** and I'll work with what I have so far!"""
+What's your industry and team size? I'll narrow it down."""
+
+    # Cloud questions
+    if any(w in msg_lower for w in ["aws", "gcp", "azure", "cloud", "which cloud"]):
+        return """**Cloud Platform Guide:**
+
+| Factor | AWS | GCP | Azure |
+|--------|-----|-----|-------|
+| Market share | #1 (32%) | #3 (12%) | #2 (23%) |
+| Best for | Everything (most services) | AI/ML, data analytics | Microsoft shops |
+| Startup credits | $100K | $100K | $150K |
+| Learning curve | Steep | Medium | Steep |
+
+**Quick guide:**
+- **Startup, no preference** → AWS (most docs, hiring pool)
+- **AI/ML heavy** → GCP
+- **Microsoft ecosystem** → Azure
+- **Budget-conscious** → Start with DigitalOcean, migrate later
+
+What's your team's current experience?"""
+
+    # Compliance questions
+    if any(w in msg_lower for w in ["compliance", "hipaa", "pci", "gdpr", "soc", "iso"]):
+        if "hipaa" in msg_lower:
+            return """**HIPAA (Healthcare):**
+- Encryption at rest (AES-256) + in transit (TLS 1.2+)
+- Audit logging for all PHI access
+- Business Associate Agreement (BAA) with every vendor
+- Access controls with minimum necessary privilege
+
+**HIPAA-compliant tools:** AWS, GCP, Azure, Auth0, Datadog, MongoDB Atlas, Supabase (paid)
+
+Want me to design a HIPAA-compliant architecture? Tell me your team size and budget."""
+        if "pci" in msg_lower:
+            return """**PCI-DSS (Payments/Fintech):**
+- Network segmentation (isolate cardholder data)
+- Web Application Firewall (WAF) required
+- Quarterly vulnerability scans
+- Encrypt all card data at rest and in transit
+
+**Key tools needed:** WAF (Cloudflare), scanner (Snyk/Trivy), SIEM, encryption (KMS)
+
+Say **"generate"** with your details and I'll build a PCI-compliant architecture."""
+        return """**Compliance Frameworks:**
+- **HIPAA** → Healthcare / health data
+- **PCI-DSS** → Payments / card data
+- **SOC2** → SaaS selling to enterprise
+- **GDPR** → Users in EU
+- **ISO27001** → Global enterprise / government
+
+Tell me your industry and I'll identify what applies to you."""
+
+    # Cost questions
+    if any(w in msg_lower for w in ["cost", "budget", "cheap", "expensive", "save", "pricing", "how much"]):
+        return """**Cost Guide by Budget:**
+
+**Under $1,000/month:**
+→ All OSS: PostgreSQL + Redis + Docker + Nginx + GitHub Actions + Prometheus
+→ Host on DigitalOcean ($50-200/mo)
+
+**$1,000 - $5,000/month:**
+→ Mix: managed DB (Aurora) + OSS monitoring + GitHub Actions
+→ Best balance of cost and operational effort
+
+**$5,000+/month:**
+→ Best-of-breed, multi-region, full observability
+→ Focus on reliability over cost
+
+What's your budget? I'll design within it."""
+
+    # Architecture pattern questions
+    if any(w in msg_lower for w in ["monolith", "microservice", "serverless", "architecture pattern", "pattern"]):
+        return """**Architecture Patterns:**
+
+**Monolith** (teams < 15):
+→ Start here. Simpler, faster to ship.
+
+**Modular Monolith** (teams 10-30):
+→ Single deployment, code organized by domain. Best middle ground.
+
+**Microservices** (teams > 20):
+→ Only when you NEED independent scaling per service.
+→ Requires: service mesh, distributed tracing, CI/CD per service.
+
+**Rule of thumb:** Start monolith. Split only when you hit real pain. Most startups split too early.
+
+What's your team size?"""
+
+    # Monitoring questions
+    if any(w in msg_lower for w in ["monitoring", "datadog", "grafana", "prometheus", "observability", "logging", "alerting"]):
+        return """**Monitoring & Observability:**
+
+| Tool | Type | Cost | Best For |
+|------|------|------|----------|
+| **Prometheus + Grafana** | OSS | Free | DevOps-skilled teams |
+| **Datadog** | Licensed | $100+/mo | Managed, easy setup |
+| **New Relic** | Licensed | Free tier | Getting started |
+| **Sentry** | OSS/Freemium | Free | Error tracking |
+
+**By team size:**
+- **< 5 engineers:** Sentry + UptimeRobot (free)
+- **5-20 engineers:** Datadog or New Relic
+- **20+ engineers:** Prometheus + Grafana + Jaeger
+
+What's your team size and main concern?"""
+
+    # CI/CD questions
+    if any(w in msg_lower for w in ["ci/cd", "cicd", "deploy", "pipeline", "github actions", "jenkins"]):
+        return """**CI/CD Recommendations:**
+
+- **GitHub Actions** → Free (2000 min/mo). Best for most teams on GitHub.
+- **GitLab CI** → Free tier. Best for GitLab users.
+- **ArgoCD** → Free. Best for Kubernetes + GitOps.
+- **Jenkins** → Free (self-host). Enterprise with complex needs.
+
+**90% of startups should just use GitHub Actions.** It's free, integrated, and powerful.
+
+Want me to include CI/CD in a full architecture blueprint? Say **"generate"** with your details."""
+
+    # Auth questions
+    if any(w in msg_lower for w in ["auth", "login", "authentication", "oauth", "sso"]):
+        return """**Authentication Recommendations:**
+
+- **Auth0/Okta** → Best managed solution. Free tier, SOC2/HIPAA compliant.
+- **Clerk** → Modern, developer-friendly. Great DX.
+- **Supertokens** → Open source alternative. Self-host or managed.
+- **Keycloak** → Enterprise OSS. Powerful but complex.
+- **AWS Cognito** → Cheapest at scale. Harder DX.
+
+**Quick pick:**
+- Small team, want easy? → **Clerk** or **Auth0**
+- Need compliance? → **Auth0** (has all certs)
+- Want OSS control? → **Supertokens**"""
+
+    # If nothing specific matches, be helpful
+    return f"""Got it! To give you the best advice about *"{message[:50]}"*, I need a bit more context:
+
+- Your **industry** (fintech, healthcare, SaaS, etc.)
+- Your **team size**
+- Your **budget**
+
+Or ask me specific questions like:
+- "PostgreSQL vs MySQL?"
+- "Best cloud for a startup?"
+- "What do I need for HIPAA?"
+- "Design architecture for fintech"
+
+What would you like to know?"""
 
 
 def format_blueprint_summary(blueprint: dict) -> str:
