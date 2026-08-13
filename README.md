@@ -102,11 +102,12 @@ Without Ollama, Jarwin works in structured mode (rule-based). With Ollama, chat 
 
 ## Knowledge Base
 
-| Category | Contents |
-|----------|----------|
-| **Tools** | 50+ tools across 7 layers (Infrastructure, Platform, Data, Application, Observability, Security, Business) |
-| **Compliance** | HIPAA, PCI-DSS, SOC2, GDPR, ISO27001 with control-level mappings |
-| **Maturity Patterns** | 5 levels (Foundation → Structured → Scalable → Resilient → Optimized) |
+| Category | Public (Demo) | Pro (Full) |
+|----------|--------------|-----------|
+| **Tools** | 15 tools across 7 layers | 50+ tools with detailed profiles |
+| **Compliance** | SOC2 only | HIPAA, PCI-DSS, SOC2, GDPR, ISO27001 |
+| **Maturity Patterns** | Levels 1-2 | All 5 levels (Foundation → Optimized) |
+| **Industries** | SaaS, Fintech, Healthcare | All 14 industry verticals |
 
 ---
 
@@ -126,13 +127,19 @@ Without Ollama, Jarwin works in structured mode (rule-based). With Ollama, chat 
 
 ## Plans & Pricing
 
-| Feature | Free | Pro ($29/mo) |
+| Feature | Free (Demo) | Pro ($29/mo) |
 |---------|------|-------------|
-| Blueprints/month | 3 | Unlimited |
-| Dual-path comparison | Basic | Detailed |
-| Compliance report | Summary | Full audit |
+| Blueprints/month | 1 | Unlimited |
+| Tools in database | 15 | 50+ |
+| Compliance frameworks | SOC2 only | HIPAA, PCI-DSS, SOC2, GDPR, ISO27001 |
+| Industries | 3 | All 14 |
+| Maturity levels | 1-2 | All 5 |
+| Agent collaboration | — | Full validation |
+| TCO detail | Basic | Detailed breakdown |
 | PDF export | — | Yes |
 | Priority support | — | Yes |
+
+**Upgrade**: Contact krishnask921@gmail.com
 
 ---
 

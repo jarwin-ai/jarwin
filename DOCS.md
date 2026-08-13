@@ -90,13 +90,13 @@ For each tool, TCO includes:
 
 ## Compliance Frameworks Supported
 
-| Framework | Industries | Key Controls |
-|-----------|-----------|-------------|
-| HIPAA | Healthcare, Health Tech | Encryption, audit logs, BAA, access control |
-| PCI-DSS | Fintech, E-commerce, Banking | Network segmentation, WAF, vulnerability scanning |
-| SOC2 | SaaS, Enterprise Software | Access control, change management, monitoring |
-| GDPR | Any (EU users) | Data residency, consent, right to erasure |
-| ISO27001 | Enterprise, Government | ISMS policy, risk assessment, business continuity |
+| Framework | Available In | Industries | Key Controls |
+|-----------|-------------|-----------|-------------|
+| SOC2 | Free + Pro | SaaS, Enterprise Software | Access control, change management, monitoring |
+| HIPAA | Pro only | Healthcare, Health Tech | Encryption, audit logs, BAA, access control |
+| PCI-DSS | Pro only | Fintech, E-commerce, Banking | Network segmentation, WAF, vulnerability scanning |
+| GDPR | Pro only | Any (EU users) | Data residency, consent, right to erasure |
+| ISO27001 | Pro only | Enterprise, Government | ISMS policy, risk assessment, business continuity |
 
 ---
 
@@ -150,6 +150,23 @@ Shows:
 - Total page visits
 - Top industries
 - Chat vs Form mode split
+
+**Note**: Change the admin key before sharing publicly.
+
+---
+
+## Free vs Pro Comparison
+
+| Capability | Free (Demo) | Pro |
+|-----------|------------|-----|
+| Blueprints/month | 1 | Unlimited |
+| Tool database | 15 tools | 50+ tools |
+| Compliance | SOC2 | All 5 frameworks |
+| Industries | SaaS, Fintech, Healthcare | All 14 |
+| Maturity levels | 1-2 | All 5 |
+| Agent collaboration | Disabled | Full |
+| LLM chat | Fallback only | Full AI |
+| TCO detail | Basic | Detailed |
 
 ---
 
