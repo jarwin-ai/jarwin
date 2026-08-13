@@ -137,24 +137,40 @@ def show_pro_upgrade():
     st.markdown("---")
     st.markdown("## ⭐ Upgrade to Jarwin Pro")
     
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.markdown("### Free Plan")
+        st.markdown("### Free")
         st.write("- 1 blueprint/month")
-        st.write("- Basic recommendations")
-        st.write("- Community support")
+        st.write("- Top 5 tool recommendations")
+        st.write("- 3 architecture sections")
+        st.write("- Compliance status only")
+        st.write("- Total cost estimate")
         st.markdown("**$0/month**")
     
     with col2:
-        st.markdown("### Pro Plan")
+        st.markdown("### ⭐ Pro")
         st.write("- Unlimited blueprints")
-        st.write("- Detailed TCO analysis")
-        st.write("- PDF export")
-        st.write("- All compliance frameworks")
-        st.write("- Priority support")
+        st.write("- All tools (50+)")
+        st.write("- All 11 architecture sections")
+        st.write("- Full compliance report")
+        st.write("- Per-service cost breakdown")
+        st.write("- All roadmap phases")
+        st.write("- JSON report download")
+        st.write("- Email support (48hr)")
         st.markdown("**$29/month**")
-        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;background:#6366f1;color:white;padding:8px 16px;border-radius:6px;font-size:0.9rem;">⭐ Upgrade to Pro</span>', unsafe_allow_html=True)
+        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;background:linear-gradient(135deg,#6366f1,#a855f7);color:white;padding:10px 20px;border-radius:8px;font-weight:600;">⭐ Get Pro</span>', unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("### 🚀 Enterprise")
+        st.write("- Everything in Pro")
+        st.write("- 30-min call/month")
+        st.write("- Quarterly architecture review")
+        st.write("- Priority support (4hr)")
+        st.write("- Audit-ready PDF reports")
+        st.write("- Custom recommendations")
+        st.markdown("**$99/month**")
+        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;background:linear-gradient(135deg,#059669,#10b981);color:white;padding:10px 20px;border-radius:8px;font-weight:600;">🚀 Get Enterprise</span>', unsafe_allow_html=True)
     
     st.markdown("---")
     
@@ -584,11 +600,22 @@ def display_tools(blueprint):
     """Display tool recommendations."""
     st.subheader("Tool Recommendations (Dual-Path)")
     
+    is_pro = st.session_state.get("is_pro", False)
     recommendations = blueprint["architecture_recommendations"]
     
     for phase in recommendations:
         with st.expander(f"Phase {phase['phase']}: Level {phase['level']} - {phase['name']}", expanded=(phase["phase"] == 1)):
-            for comp in phase["components"]:
+            components = phase["components"]
+            
+            # Free users see only first 5 components
+            if not is_pro and len(components) > 5:
+                visible = components[:5]
+                locked_count = len(components) - 5
+            else:
+                visible = components
+                locked_count = 0
+            
+            for comp in visible:
                 st.markdown(f"#### {comp['component'].replace('_', ' ').title()}")
                 st.caption(comp.get("description", ""))
                 
@@ -637,26 +664,39 @@ def display_tools(blueprint):
                     st.success(f"**Recommendation: {verdict}** — {rationale}")
                 
                 st.markdown("---")
+            
+            # Show locked message for free users
+            if locked_count > 0:
+                st.info(f"🔒 **{locked_count} more components** available with Pro — including security, observability, and data tools.")
+                st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade to see all →</span>', unsafe_allow_html=True)
 
 
 def display_compliance(blueprint):
     """Display compliance report."""
     st.subheader("Compliance Report")
     
+    is_pro = st.session_state.get("is_pro", False)
     report = blueprint["compliance_report"]
     
     if report["overall_status"] == "NO_COMPLIANCE_REQUIRED":
         st.info("No specific compliance frameworks detected for your configuration.")
         return
     
-    # Framework scores
-    st.markdown("### Framework Coverage")
+    # Everyone sees the status
     for fw, scores in report.get("framework_scores", {}).items():
         score_pct = int(scores["score"] * 100)
         status_icon = "✅" if scores["status"] == "COMPLIANT" else "⚠️"
         st.write(f"{status_icon} **{fw}**: {score_pct}% ({scores['controls_met']}/{scores['controls_total']} controls)")
         st.progress(scores["score"])
     
+    if not is_pro:
+        st.info("🔒 **Full compliance details** (control mappings, gap analysis, remediation steps) available with Pro.")
+        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade for full compliance report →</span>', unsafe_allow_html=True)
+        return
+    
+    # Pro users see full details
+    
+    # Pro users see full details
     # Gaps
     if report.get("gaps"):
         st.markdown("### ⚠️ Compliance Gaps")
@@ -680,32 +720,45 @@ def display_costs(blueprint):
     """Display cost analysis."""
     st.subheader("Cost Projection")
     
+    is_pro = st.session_state.get("is_pro", False)
     costs = blueprint["cost_projection"]
     
+    # Everyone sees totals
     col1, col2, col3 = st.columns(3)
     
     with col1:
         st.markdown("### 🟢 Full OSS Path")
         st.metric("Monthly", f"${costs['oss_path']['monthly']:,.0f}")
-        st.metric("Annual", f"${costs['oss_path']['annual']:,.0f}")
-        st.metric("3-Year Total", f"${costs['oss_path']['three_year']:,.0f}")
     
     with col2:
         st.markdown("### 🔵 Full Licensed Path")
         st.metric("Monthly", f"${costs['licensed_path']['monthly']:,.0f}")
-        st.metric("Annual", f"${costs['licensed_path']['annual']:,.0f}")
-        st.metric("3-Year Total", f"${costs['licensed_path']['three_year']:,.0f}")
     
     with col3:
-        st.markdown("### ⭐ Recommended (Mixed)")
+        st.markdown("### ⭐ Recommended")
         st.metric("Monthly", f"${costs['recommended_path']['monthly']:,.0f}")
-        st.metric("Annual", f"${costs['recommended_path']['annual']:,.0f}")
-        st.metric("3-Year Total", f"${costs['recommended_path']['three_year']:,.0f}")
     
-    st.markdown("---")
     savings = costs.get("savings_vs_licensed", {})
     if savings.get("annual", 0) > 0:
         st.success(f"💰 **You save ${savings['annual']:,.0f}/year** with the recommended path vs. all-licensed")
+    
+    if not is_pro:
+        st.info("🔒 **Detailed cost breakdown** (per-service costs, annual projections, 3-year TCO) available with Pro.")
+        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade for full cost analysis →</span>', unsafe_allow_html=True)
+        return
+    
+    # Pro: full breakdown
+    st.markdown("---")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Annual (OSS)", f"${costs['oss_path']['annual']:,.0f}")
+        st.metric("3-Year (OSS)", f"${costs['oss_path']['three_year']:,.0f}")
+    with col2:
+        st.metric("Annual (Licensed)", f"${costs['licensed_path']['annual']:,.0f}")
+        st.metric("3-Year (Licensed)", f"${costs['licensed_path']['three_year']:,.0f}")
+    with col3:
+        st.metric("Annual (Recommended)", f"${costs['recommended_path']['annual']:,.0f}")
+        st.metric("3-Year (Recommended)", f"${costs['recommended_path']['three_year']:,.0f}")
 
 
 def display_e2e_architecture(blueprint):
@@ -750,11 +803,20 @@ def display_full_report(blueprint):
     """Display full JSON report for download."""
     st.subheader("Full Architecture Report")
     
-    # Next steps
+    is_pro = st.session_state.get("is_pro", False)
+    
+    # Next steps (everyone sees)
     st.markdown("### Next Steps")
     for i, step in enumerate(blueprint.get("next_steps", []), 1):
         st.write(f"{i}. {step}")
     
+    if not is_pro:
+        st.markdown("---")
+        st.info("🔒 **Full report download** (JSON with all architecture details) available with Pro.")
+        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade to download full report →</span>', unsafe_allow_html=True)
+        return
+    
+    # Pro: full download
     st.markdown("---")
     st.markdown("### Download Report")
     
