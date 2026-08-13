@@ -2,26 +2,33 @@
 
 **Your AI Architecture Advisor** — Design smarter, build faster.
 
-**Live App**: [jarwin-ai.streamlit.app](https://jarwin-ai.streamlit.app)  
-**Website**: [jarwin-landing.vercel.app](https://jarwin-landing.vercel.app)
+**Website**: [jarwin-landing.vercel.app](https://jarwin-landing.vercel.app)  
+**App**: [jarwin-ai.streamlit.app](https://jarwin-ai.streamlit.app)
 
 ---
 
 ## What is Jarwin AI?
 
-Jarwin AI helps companies design their complete technology architecture in 30 seconds. Tell us about your company — industry, team size, budget, compliance needs — and get a full blueprint with tool recommendations, compliance mapping, and cost projections.
+Jarwin AI generates complete end-to-end technology architecture for companies in 30 seconds. Not just tool lists — full architecture covering 11 sections from infrastructure to disaster recovery.
 
 ---
 
-## Features
+## What You Get
 
-- Maturity Assessment (Level 1-5)
-- Progressive Roadmap with transition triggers
-- OSS vs Licensed dual-path comparison
-- Real TCO calculations
-- Compliance validation (HIPAA, PCI-DSS, SOC2, GDPR, ISO27001)
-- Chat interface for natural interaction
-- Cost projections (monthly, annual, 3-year)
+- Architecture Pattern recommendation
+- Code & Framework selection
+- DevOps Pipeline design
+- Infrastructure Design
+- AI/ML Stack recommendation
+- Team Structure & Process
+- Security Architecture
+- Testing Strategy
+- Disaster Recovery plan
+- Data Architecture
+- Automation & IaC setup
+- Compliance validation
+- Cost projections (OSS vs Licensed)
+- Progressive maturity roadmap
 
 ---
 
@@ -30,20 +37,16 @@ Jarwin AI helps companies design their complete technology architecture in 30 se
 | | Free | Pro ($29/mo) |
 |---|---|---|
 | Blueprints | 1/month | Unlimited |
-| Tool database | Basic | Full (50+) |
+| Architecture sections | Preview only | Full 11 sections |
+| Tools | Basic | 50+ |
 | Compliance | SOC2 | All 5 frameworks |
-| Support | Community | Priority |
 
 ---
 
 ## License
 
-**Business Source License** — See [LICENSE](LICENSE) for details.
+**Business Source License**
 
-You may view this code for learning purposes only.  
-Commercial use, redistribution, or building competing products is prohibited.  
+You may view this code for learning only.  
+You may NOT use it to build a competing product, sell it, or deploy it commercially.  
 For commercial licensing: krishnask921@gmail.com
-
----
-
-**Built by [Jarwin AI](https://jarwin-landing.vercel.app)**
