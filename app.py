@@ -172,7 +172,24 @@ def main():
     
     # Always show Upgrade link (except for Pro users)
     if not st.session_state["is_pro"]:
-        st.link_button("⭐ Upgrade to Jarwin Pro", "mailto:krishnask921@gmail.com?subject=Jarwin Pro - Upgrade Request&body=Hi Jarwin Team,%0D%0A%0D%0AI've been using Jarwin and I'm interested in upgrading to the Pro plan ($29/month).%0D%0A%0D%0AI'd like access to:%0D%0A- Unlimited blueprints%0D%0A- All compliance frameworks (HIPAA, PCI-DSS, GDPR, ISO27001)%0D%0A- Full tool database (50+ tools)%0D%0A- All maturity levels%0D%0A%0D%0APlease share the payment details and Pro access key.%0D%0A%0D%0AMy company details:%0D%0AIndustry: %0D%0ATeam size: %0D%0A%0D%0AThanks!")
+        with st.expander("⭐ Upgrade to Jarwin Pro — $29/month", expanded=False):
+            st.markdown("""
+**Pro Plan includes:**
+- Unlimited blueprints
+- All 5 compliance frameworks (HIPAA, PCI-DSS, GDPR, ISO27001)
+- 50+ tools database
+- Full maturity roadmap (all 5 levels)
+- Priority support
+
+**To upgrade:** Email us at **krishnask921@gmail.com** with subject "Jarwin Pro"
+
+Or enter your Pro key below:
+""")
+            pro_key = st.text_input("Pro Access Key:", type="password", key="pro_key_main")
+            if pro_key and pro_key == "JARWIN-PRO-2024":
+                st.session_state["is_pro"] = True
+                st.success("Pro activated!")
+                st.rerun()
     
     # Mode selection
     mode = st.radio("Mode", ["💬 Chat Mode", "📋 Quick Mode (Form)"], horizontal=True, label_visibility="collapsed")
