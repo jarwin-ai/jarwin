@@ -164,9 +164,9 @@ def main():
     else:
         free_left = max(0, 1 - st.session_state["usage_count"])
         if free_left > 0:
-            st.caption(f"Free Plan — {free_left} blueprint remaining | [⭐ Upgrade to Jarwin Pro](mailto:krishnask921@gmail.com?subject=Jarwin%20Pro%20-%20Upgrade%20Request&body=Hi%20Jarwin%20Team%2C%0AI%20want%20to%20upgrade%20to%20Pro.)")
+            st.caption(f"Free Plan — {free_left} blueprint remaining | ⭐ Upgrade to Jarwin Pro → Contact: **krishnask921@gmail.com**")
         else:
-            st.warning("⚠️ Free limit reached. [⭐ Upgrade to Jarwin Pro](mailto:krishnask921@gmail.com?subject=Jarwin%20Pro%20-%20Upgrade%20Request&body=Hi%20Jarwin%20Team%2C%0AI%20want%20to%20upgrade%20to%20Pro.)")
+            st.warning("⚠️ Free limit reached. Upgrade to Jarwin Pro → Contact: **krishnask921@gmail.com**")
             show_pro_upgrade()
             return
     
