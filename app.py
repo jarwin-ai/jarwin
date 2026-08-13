@@ -95,7 +95,7 @@ def show_pro_upgrade():
         st.write("- All compliance frameworks")
         st.write("- Priority support")
         st.markdown("**$29/month**")
-        st.link_button("🚀 Upgrade to Pro", "https://krishnask.gumroad.com/l/cjyrdx", type="primary")
+        st.link_button("🚀 Upgrade to Pro", "mailto:krishnask921@gmail.com?subject=Jarwin Pro - Upgrade Request&body=Hi Jarwin Team,%0D%0A%0D%0AI've been using Jarwin and I'm interested in upgrading to the Pro plan ($29/month).%0D%0A%0D%0AI'd like access to:%0D%0A- Unlimited blueprints%0D%0A- All compliance frameworks (HIPAA, PCI-DSS, GDPR, ISO27001)%0D%0A- Full tool database (50+ tools)%0D%0A- All maturity levels%0D%0A%0D%0APlease share the payment details and Pro access key.%0D%0A%0D%0AMy company details:%0D%0AIndustry: %0D%0ATeam size: %0D%0A%0D%0AThanks!", type="primary")
     
     st.markdown("---")
     
