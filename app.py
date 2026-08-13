@@ -18,7 +18,7 @@ from agents.analytics import track_event, get_stats
 
 # Page config
 st.set_page_config(
-    page_title="Jarwin - Architecture Advisor",
+    page_title="Jarwin AI - Architecture Advisor",
     page_icon="🏗️",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -33,42 +33,28 @@ st.set_page_config(
 st.markdown("""
 <style>
     .main-header {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #1a1a2e;
-        margin-bottom: 0.5rem;
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0rem;
     }
     .sub-header {
         font-size: 1.1rem;
-        color: #555;
-        margin-bottom: 2rem;
+        color: #64748b;
+        margin-bottom: 1.5rem;
     }
-    .metric-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 1.5rem;
-        border-radius: 12px;
-        color: white;
-        text-align: center;
+    .stButton > button[kind="primary"] {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border: none;
+        border-radius: 8px;
     }
-    .phase-card {
-        border: 2px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-    }
-    .oss-badge {
-        background-color: #10b981;
-        color: white;
-        padding: 2px 8px;
-        border-radius: 4px;
-        font-size: 0.75rem;
-    }
-    .lic-badge {
-        background-color: #6366f1;
-        color: white;
-        padding: 2px 8px;
-        border-radius: 4px;
-        font-size: 0.75rem;
+    div[data-testid="stMetric"] {
+        background: #f8fafc;
+        padding: 1rem;
+        border-radius: 10px;
+        border: 1px solid #e2e8f0;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -153,8 +139,8 @@ def main():
         st.session_state["usage_count"] = 0
     
     # Header
-    st.markdown('<p class="main-header">Jarwin</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-header">Adaptive Architecture Blueprint System — Your AI Architecture Advisor</p>', unsafe_allow_html=True)
+    st.markdown('<p class="main-header">Jarwin AI</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-header">Your AI Architecture Advisor — Design smarter, build faster</p>', unsafe_allow_html=True)
     
     # LLM Status (hidden from users - not relevant)
     llm = get_llm()
@@ -278,6 +264,13 @@ def main():
     if st.session_state.get("generated"):
         blueprint = st.session_state["blueprint"]
         
+        # Add "New Blueprint" button to allow generating another
+        if st.button("🔄 Generate New Blueprint", type="secondary"):
+            st.session_state.pop("generated", None)
+            st.session_state.pop("blueprint", None)
+            st.session_state.pop("validation", None)
+            st.rerun()
+        
         # Run validation (hidden from user - internal quality check)
         if "validation" not in st.session_state:
             context = st.session_state.get("last_context", {})
@@ -318,22 +311,22 @@ def display_landing():
     
     with col1:
         st.markdown("### 📊 Maturity Assessment")
-        st.write("Understand where you are and where you should be headed.")
+        st.write("Know your current level and get a clear path to enterprise-grade architecture.")
     
     with col2:
         st.markdown("### ⚖️ OSS vs Licensed")
-        st.write("Get dual-path recommendations with TCO comparison for every component.")
+        st.write("Side-by-side comparison with real TCO math for every component in your stack.")
     
     with col3:
-        st.markdown("### ✅ Compliance Mapping")
-        st.write("Auto-validate against HIPAA, PCI-DSS, SOC2, GDPR, ISO27001.")
+        st.markdown("### ✅ Compliance Ready")
+        st.write("Architecture validated against HIPAA, PCI-DSS, SOC2, GDPR, ISO27001 from day one.")
     
     st.markdown("---")
-    st.markdown("### How it works")
+    st.markdown("### How Jarwin AI works")
     st.markdown("""
-    1. **Fill in your company details** in the sidebar (Quick Mode) OR **chat with Jarwin** (Chat Mode)
-    2. **Get a complete E2E architecture** with phased roadmap, tool recommendations, and compliance report
-    3. **Download the report** or ask follow-up questions
+    1. **Tell us about your company** — industry, team size, budget, compliance needs
+    2. **Jarwin AI analyzes** and designs your complete architecture
+    3. **Get your blueprint** — phased roadmap, tool recommendations, compliance report, cost analysis
     
     Powered by verified tool data, real pricing, and compliance frameworks.
     """)
@@ -356,7 +349,7 @@ def run_chat_mode():
     
     # Welcome message
     if not st.session_state.chat_messages:
-        welcome = """Hey! I'm **Jarwin**, your AI Architecture Advisor. 👋
+        welcome = """Hey! I'm **Jarwin AI**, your Architecture Advisor. 👋
 
 I help companies design their complete technology stack — from databases to deployment.
 
