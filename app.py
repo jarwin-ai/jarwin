@@ -164,7 +164,7 @@ def main():
     else:
         free_left = max(0, 1 - st.session_state["usage_count"])
         if free_left > 0:
-            st.caption(f"Free Plan — {free_left} blueprint remaining | [Upgrade to Pro](https://jarwin.gumroad.com/l/pro)")
+            st.caption(f"Free Plan — {free_left} blueprint remaining")
         else:
             st.warning("⚠️ Free limit reached (1 blueprint). Upgrade to Pro for unlimited access.")
             show_pro_upgrade()
