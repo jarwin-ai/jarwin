@@ -105,11 +105,11 @@ def main():
     if st.session_state["is_pro"]:
         st.caption("⭐ Pro Plan Active")
     else:
-        free_left = max(0, 3 - st.session_state["usage_count"])
+        free_left = max(0, 1 - st.session_state["usage_count"])
         if free_left > 0:
-            st.caption(f"Free Plan — {free_left} blueprint(s) remaining")
+            st.caption(f"Free Plan — {free_left} blueprint remaining | [Upgrade to Pro](https://jarwin.gumroad.com/l/pro)")
         else:
-            st.warning("⚠️ Free limit reached (3 blueprints). Upgrade to Pro for unlimited access.")
+            st.warning("⚠️ Free limit reached (1 blueprint). Upgrade to Pro for unlimited access.")
             show_pro_upgrade()
             return
     

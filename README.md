@@ -174,7 +174,11 @@ Pull requests welcome! Areas to contribute:
 
 ## License
 
-MIT
+This project uses a **Business Source License**. See [LICENSE](LICENSE) for details.
+
+- You may view and study the code for learning
+- You may NOT use it to build a competing product
+- For commercial licensing: krishnask921@gmail.com
 
 ---
 

@@ -1,32 +1,5 @@
 {
   "frameworks": {
-    "HIPAA": {
-      "name": "Health Insurance Portability and Accountability Act",
-      "industries": ["healthcare", "health_tech", "insurance"],
-      "jurisdiction": ["US"],
-      "key_requirements": {
-        "encryption_at_rest": {"mandatory": true, "description": "All PHI must be encrypted at rest using AES-256 or equivalent"},
-        "encryption_in_transit": {"mandatory": true, "description": "All data transmission must use TLS 1.2+"},
-        "access_control": {"mandatory": true, "description": "Role-based access with minimum necessary privilege"},
-        "audit_logging": {"mandatory": true, "description": "All access to PHI must be logged with who, what, when"},
-        "backup_recovery": {"mandatory": true, "description": "Regular backups with tested recovery procedures"},
-        "baa_required": {"mandatory": true, "description": "Business Associate Agreement required with all vendors handling PHI"}
-      }
-    },
-    "PCI-DSS": {
-      "name": "Payment Card Industry Data Security Standard",
-      "industries": ["fintech", "ecommerce", "banking", "retail"],
-      "jurisdiction": ["global"],
-      "key_requirements": {
-        "network_segmentation": {"mandatory": true, "description": "Cardholder data environment must be segmented from other networks"},
-        "encryption_at_rest": {"mandatory": true, "description": "Stored cardholder data must be encrypted"},
-        "encryption_in_transit": {"mandatory": true, "description": "Card data must be encrypted during transmission"},
-        "access_control": {"mandatory": true, "description": "Restrict access to cardholder data on need-to-know basis"},
-        "vulnerability_scanning": {"mandatory": true, "description": "Regular vulnerability scans and penetration testing"},
-        "audit_logging": {"mandatory": true, "description": "Track and monitor all access to cardholder data"},
-        "waf": {"mandatory": true, "description": "Web application firewall for public-facing applications"}
-      }
-    },
     "SOC2": {
       "name": "Service Organization Control 2",
       "industries": ["saas", "fintech", "healthcare", "enterprise_software"],
@@ -39,35 +12,7 @@
         "incident_response": {"mandatory": true, "description": "Documented incident response procedures"},
         "vendor_management": {"mandatory": true, "description": "Third-party vendor risk management program"}
       }
-    },
-    "GDPR": {
-      "name": "General Data Protection Regulation",
-      "industries": ["all"],
-      "jurisdiction": ["EU", "EEA", "UK"],
-      "key_requirements": {
-        "data_residency": {"mandatory": true, "description": "Personal data of EU citizens must be stored within EU or with adequate safeguards"},
-        "consent_management": {"mandatory": true, "description": "Explicit consent required for data processing"},
-        "right_to_erasure": {"mandatory": true, "description": "Ability to delete user data on request"},
-        "data_portability": {"mandatory": true, "description": "Users can export their data in machine-readable format"},
-        "breach_notification": {"mandatory": true, "description": "72-hour notification requirement for data breaches"},
-        "dpo_required": {"mandatory": false, "description": "Data Protection Officer required for large-scale processing"},
-        "privacy_by_design": {"mandatory": true, "description": "Privacy considerations built into system design"}
-      }
-    },
-    "ISO27001": {
-      "name": "Information Security Management System",
-      "industries": ["enterprise", "government", "finance", "healthcare"],
-      "jurisdiction": ["global"],
-      "key_requirements": {
-        "isms_policy": {"mandatory": true, "description": "Documented information security management system"},
-        "risk_assessment": {"mandatory": true, "description": "Systematic risk assessment methodology"},
-        "access_control": {"mandatory": true, "description": "Access control policy and implementation"},
-        "cryptography": {"mandatory": true, "description": "Policy on use of cryptographic controls"},
-        "physical_security": {"mandatory": true, "description": "Physical and environmental security controls"},
-        "incident_management": {"mandatory": true, "description": "Information security incident management"},
-        "business_continuity": {"mandatory": true, "description": "Information security in business continuity management"},
-        "compliance_review": {"mandatory": true, "description": "Regular compliance review and audit"}
-      }
     }
-  }
+  },
+  "_note": "Full compliance database (HIPAA, PCI-DSS, GDPR, ISO27001) available in Pro version. Contact: krishnask921@gmail.com"
 }
