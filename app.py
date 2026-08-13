@@ -258,8 +258,7 @@ def main():
     
     # Sidebar - Input Form
     with st.sidebar:
-        st.header("Tell Us About Your Company")
-        st.markdown("---")
+        st.markdown("### 🏢 About Your Company")
         
         industry = st.selectbox(
             "Industry",
@@ -275,11 +274,23 @@ def main():
         )
         
         team_size = st.number_input("Engineering Team Size", min_value=1, max_value=500, value=10, step=1)
-        monthly_users = st.number_input("Expected Monthly Active Users", min_value=100, max_value=100_000_000, value=10000, step=1000)
+        monthly_users = st.number_input("Expected Monthly Users", min_value=100, max_value=100_000_000, value=10000, step=1000)
         budget_monthly = st.number_input("Monthly Tech Budget (USD)", min_value=0, max_value=1_000_000, value=2000, step=500)
         
         st.markdown("---")
-        st.subheader("Technical Preferences")
+        st.markdown("### 🛠️ Technical Details")
+        
+        product_type = st.selectbox(
+            "Product Type",
+            options=["web_app", "mobile_app", "api_backend", "marketplace", "saas_platform", "internal_tool"],
+            format_func=lambda x: x.replace("_", " ").title(),
+        )
+        
+        starting_point = st.selectbox(
+            "Starting Point",
+            options=["building_from_scratch", "migrating_existing", "scaling_current"],
+            format_func=lambda x: x.replace("_", " ").title(),
+        )
         
         cloud_pref = st.selectbox("Cloud Preference", ["any", "aws", "gcp", "azure", "multi-cloud"])
         
@@ -289,6 +300,9 @@ def main():
             value="balanced",
             format_func=lambda x: {"oss_first": "Prefer OSS", "balanced": "Balanced", "licensed_first": "Prefer Licensed"}[x],
         )
+        
+        st.markdown("---")
+        st.markdown("### 🌍 Deployment & Compliance")
         
         regions = st.multiselect(
             "Deployment Regions",
@@ -320,6 +334,8 @@ def main():
                 "oss_preference": oss_pref,
                 "regions": regions,
                 "uptime_sla": uptime_sla,
+                "product_type": product_type,
+                "starting_point": starting_point,
             }
             
             context = analyze_context(user_inputs)
