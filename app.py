@@ -342,6 +342,34 @@ def run_chat_mode():
     if "chat_context" not in st.session_state:
         st.session_state.chat_context = None
     
+    if "chat_history_all" not in st.session_state:
+        st.session_state.chat_history_all = []
+    
+    # Clear chat button + history toggle
+    col_a, col_b = st.columns([1, 1])
+    with col_a:
+        if st.button("🗑️ Clear Chat"):
+            # Save current chat to history before clearing
+            if st.session_state.chat_messages:
+                st.session_state.chat_history_all.append(st.session_state.chat_messages.copy())
+            st.session_state.chat_messages = []
+            st.session_state.chat_context = None
+            st.rerun()
+    with col_b:
+        if st.session_state.chat_history_all:
+            if st.button(f"📜 Past Chats ({len(st.session_state.chat_history_all)})"):
+                st.session_state["show_history"] = not st.session_state.get("show_history", False)
+    
+    # Show past chat history if toggled
+    if st.session_state.get("show_history") and st.session_state.chat_history_all:
+        with st.expander("📜 Previous Conversations", expanded=True):
+            for i, chat in enumerate(reversed(st.session_state.chat_history_all)):
+                st.caption(f"Conversation {len(st.session_state.chat_history_all) - i}")
+                for msg in chat[:4]:  # Show first 4 messages preview
+                    if msg["role"] == "user":
+                        st.markdown(f"**You:** {msg['content'][:100]}...")
+                st.markdown("---")
+    
     # Display chat messages
     for msg in st.session_state.chat_messages:
         with st.chat_message(msg["role"], avatar="🏗️" if msg["role"] == "assistant" else None):
