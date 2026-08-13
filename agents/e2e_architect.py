@@ -575,7 +575,7 @@ def generate_business_tools(context: dict, maturity: dict) -> dict:
 
 
 def generate_analytics_bi(context: dict, maturity: dict) -> dict:
-    """Recommend analytics, BI, and data tools."""
+    """Recommend analytics, BI, and digital measurement tools."""
     level = maturity["current_level"]
     budget = context["organization"]["budget_monthly_usd"]
     industry = context["organization"]["industry"]
@@ -588,6 +588,9 @@ def generate_analytics_bi(context: dict, maturity: dict) -> dict:
             "etl_pipeline": "Not needed yet — direct queries sufficient",
             "ab_testing": "PostHog feature flags or Growthbook (open source)",
             "cloud_analytics": "AWS CloudWatch or basic cloud dashboards",
+            "marketing_attribution": "Google Analytics 4 (free) + UTM tracking",
+            "tag_management": "Google Tag Manager (free)",
+            "cdp": "Not needed yet — use GA4 + Mixpanel together",
         }
     elif level == 2:
         analytics = {
@@ -597,6 +600,10 @@ def generate_analytics_bi(context: dict, maturity: dict) -> dict:
             "etl_pipeline": "dbt (transform) + Airbyte (ingestion, open source)",
             "ab_testing": "GrowthBook (OSS) or LaunchDarkly (feature flags)",
             "cloud_analytics": "AWS Athena (query S3 data directly) + QuickSight",
+            "marketing_attribution": "AppsFlyer or Branch (mobile) + GA4 (web)",
+            "tag_management": "Google Tag Manager + Segment ($120/mo)",
+            "cdp": "Segment or RudderStack (open source alternative)",
+            "seo_tools": "Ahrefs or SEMrush ($99-199/mo)",
         }
     else:
         analytics = {
@@ -607,11 +614,17 @@ def generate_analytics_bi(context: dict, maturity: dict) -> dict:
             "ab_testing": "Eppo or Statsig (statistical rigor) + feature management",
             "cloud_analytics": "AWS Athena + Lake Formation + Redshift Spectrum",
             "ml_analytics": "Vertex AI or SageMaker for predictive analytics",
+            "marketing_attribution": "AppsFlyer + MMM (Media Mix Modeling) + multi-touch attribution",
+            "tag_management": "Tealium or Segment Enterprise + server-side tagging",
+            "cdp": "Segment Enterprise or mParticle (real-time, cross-platform)",
+            "seo_tools": "Ahrefs + SEMrush + Screaming Frog + custom dashboards",
+            "ad_measurement": "Nielsen/Comscore (reach) + DoubleVerify (verification)",
+            "marketing_automation": "HubSpot Enterprise or Marketo + Braze (engagement)",
         }
     
     return {
         **analytics,
-        "preview": f"{analytics['product_analytics'][:30]} + {analytics['data_warehouse'][:25] if 'data_warehouse' in analytics else ''}..."
+        "preview": f"{analytics['product_analytics'][:30]} + {analytics.get('marketing_attribution', '')[:25]}..."
     }
 
 
@@ -673,6 +686,6 @@ E2E_SECTIONS = {
     "data_architecture": {"title": "Data Architecture", "icon": "🗄️"},
     "automation": {"title": "Automation & IaC", "icon": "⚙️"},
     "business_tools": {"title": "Business Operations Tools", "icon": "🏢"},
-    "analytics_bi": {"title": "Analytics & BI Stack", "icon": "📈"},
+    "analytics_bi": {"title": "Analytics, BI & Digital Measurement", "icon": "📈"},
     "compliance_governance": {"title": "Compliance & Governance", "icon": "📜"},
 }
