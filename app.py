@@ -406,9 +406,11 @@ def display_results(blueprint):
     
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Current Level", summary["current_level"])
+    col1.caption(summary.get("current_name", ""))
     col2.metric("Target Level", summary["target_level"])
+    col2.caption(summary.get("target_name", ""))
     col3.metric("Timeline", summary["timeline"])
-    col4.metric("Monthly Cost", summary["recommended_monthly_cost"])
+    col4.metric("Estimated Cost", summary["recommended_monthly_cost"])
     
     # Compliance status
     compliance_color = "🟢" if blueprint["compliance_report"]["overall_status"] == "COMPLIANT" else "🟡" if blueprint["compliance_report"]["overall_status"] == "GAPS_FOUND" else "⚪"
