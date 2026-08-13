@@ -213,47 +213,58 @@ def generate_ai_ml_stack(context: dict) -> dict:
     }
 
 
-def generate_team_structure(context: dict, maturity: dict) -> dict:
-    """Recommend team organization."""
+def generate_team_and_process(context: dict, maturity: dict) -> dict:
+    """Recommend team organization + project management process (merged)."""
     team = context["organization"]["team_size"]
-    level = maturity["current_level"]
     
     if team <= 5:
-        structure = {
-            "model": "Single cross-functional team",
-            "squads": "1 squad: everyone does everything",
-            "process": "Kanban (continuous flow, no sprints)",
-            "communication": "Slack + daily standup (15 min)",
-            "hiring_priority": "Full-stack engineer, then DevOps",
+        result = {
+            "team_model": "Single cross-functional team — everyone does everything",
+            "squads": "1 team (no squads needed yet)",
+            "methodology": "Kanban — continuous flow, no heavy sprint ceremonies",
+            "tool": "Linear Free or Notion boards",
+            "standup": "Daily async (Slack bot or Geekbot) — 2 min each",
+            "release_process": "Ship when ready — no release train",
+            "communication": "Slack + daily async standup + weekly 30-min sync",
+            "hiring_priority": "Full-stack engineer → then DevOps",
         }
     elif team <= 15:
-        structure = {
-            "model": "2 squads with shared platform",
-            "squads": "Product squad (features) + Platform squad (infra/DevOps)",
-            "process": "Scrum, 2-week sprints, sprint planning + retro",
-            "communication": "Slack + Notion + weekly all-hands",
-            "hiring_priority": "Backend specialist, Frontend specialist, SRE",
+        result = {
+            "team_model": "2 squads: Product (features) + Platform (infra/DevOps)",
+            "squads": "Product squad (5-8) + Platform squad (3-5)",
+            "methodology": "Scrum — 2-week sprints with planning, review, retro",
+            "tool": "Linear (recommended) or Jira Standard",
+            "standup": "Daily sync standup (15 min) per squad",
+            "release_process": "Weekly releases (Tuesdays) with changelog",
+            "communication": "Slack + Notion wiki + weekly all-hands (30 min)",
+            "hiring_priority": "Backend specialist → Frontend specialist → SRE",
         }
     elif team <= 50:
-        structure = {
-            "model": "Domain-oriented squads",
-            "squads": "3-5 squads by business domain + 1 platform team",
-            "process": "Scrum per squad, quarterly OKR planning",
-            "communication": "Slack + Notion + Jira + bi-weekly demos",
-            "hiring_priority": "Engineering managers, Staff engineers, Security engineer",
+        result = {
+            "team_model": "Domain-oriented squads (3-5 squads) + 1 platform team",
+            "squads": "Squads by business domain (6-8 per squad) + shared platform",
+            "methodology": "Scrum per squad + quarterly OKR planning",
+            "tool": "Linear or Jira + Confluence for docs",
+            "standup": "Squad standups (daily) + cross-squad sync (weekly)",
+            "release_process": "Bi-weekly releases with feature flags",
+            "communication": "Slack + Notion + bi-weekly demos + quarterly all-hands",
+            "hiring_priority": "Engineering managers → Staff engineers → Security engineer",
         }
     else:
-        structure = {
-            "model": "Spotify model (Tribes, Squads, Chapters, Guilds)",
-            "squads": "Multiple tribes with autonomous squads (6-8 per squad)",
-            "process": "SAFe or custom scaled agile, quarterly PI planning",
-            "communication": "Dedicated tools per tribe + company-wide architecture council",
-            "hiring_priority": "VP Engineering, Principal architects, SRE team",
+        result = {
+            "team_model": "Tribes & Squads (Spotify model) with autonomous ownership",
+            "squads": "Multiple tribes, 6-8 per squad, chapters for specialties",
+            "methodology": "SAFe or custom scaled agile — quarterly PI planning",
+            "tool": "Jira Premium + Jira Align (portfolio) + Confluence",
+            "standup": "Squad daily → Scrum of Scrums (weekly) → ART sync (bi-weekly)",
+            "release_process": "Release train (bi-weekly) + progressive rollout + feature flags",
+            "communication": "Dedicated tools per tribe + architecture council + PI events",
+            "hiring_priority": "VP Engineering → Principal architects → SRE team lead",
         }
     
     return {
-        **structure,
-        "preview": f"{structure['model']} — {structure['squads'][:40]}..."
+        **result,
+        "preview": f"{result['team_model'][:35]}... | {result['methodology'][:25]}..."
     }
 
 
@@ -464,7 +475,7 @@ def generate_full_e2e(context: dict, maturity: dict) -> dict:
         "devops_pipeline": generate_devops_pipeline(context, maturity),
         "infrastructure": generate_infrastructure(context, maturity),
         "ai_ml_stack": generate_ai_ml_stack(context),
-        "team_structure": generate_team_structure(context, maturity),
+        "team_and_process": generate_team_and_process(context, maturity),
         "security_architecture": generate_security_architecture(context, maturity),
         "testing_strategy": generate_testing_strategy(context, maturity),
         "disaster_recovery": generate_disaster_recovery(context, maturity),
@@ -472,7 +483,6 @@ def generate_full_e2e(context: dict, maturity: dict) -> dict:
         "automation": generate_automation(context, maturity),
         "business_tools": generate_business_tools(context, maturity),
         "analytics_bi": generate_analytics_bi(context, maturity),
-        "project_management": generate_project_management(context, maturity),
     }
 
 
@@ -616,7 +626,7 @@ E2E_SECTIONS = {
     "devops_pipeline": {"title": "DevOps Pipeline", "icon": "🔄"},
     "infrastructure": {"title": "Infrastructure Design", "icon": "☁️"},
     "ai_ml_stack": {"title": "AI/ML Stack", "icon": "🤖"},
-    "team_structure": {"title": "Team Structure & Process", "icon": "👥"},
+    "team_and_process": {"title": "Team Structure & Agile Process", "icon": "👥"},
     "security_architecture": {"title": "Security Architecture", "icon": "🔒"},
     "testing_strategy": {"title": "Testing Strategy", "icon": "🧪"},
     "disaster_recovery": {"title": "Disaster Recovery", "icon": "🛡️"},
@@ -624,5 +634,4 @@ E2E_SECTIONS = {
     "automation": {"title": "Automation & IaC", "icon": "⚙️"},
     "business_tools": {"title": "Business Operations Tools", "icon": "🏢"},
     "analytics_bi": {"title": "Analytics & BI Stack", "icon": "📈"},
-    "project_management": {"title": "Project Management & Agile", "icon": "📋"},
 }
