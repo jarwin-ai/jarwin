@@ -32,29 +32,100 @@ st.set_page_config(
 # Custom CSS
 st.markdown("""
 <style>
+    /* Hide Streamlit branding */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    
+    /* Main header */
     .main-header {
-        font-size: 3rem;
+        font-size: 3.2rem;
         font-weight: 800;
         background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 0rem;
+        letter-spacing: -1px;
     }
     .sub-header {
-        font-size: 1.1rem;
+        font-size: 1.15rem;
         color: #64748b;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
+    
+    /* Cards */
+    div[data-testid="stMetric"] {
+        background: #f8fafc;
+        padding: 1rem;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    /* Buttons */
     .stButton > button[kind="primary"] {
         background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         border: none;
         border-radius: 8px;
+        font-weight: 600;
     }
-    div[data-testid="stMetric"] {
-        background: #f8fafc;
-        padding: 1rem;
-        border-radius: 10px;
+    .stButton > button[kind="secondary"] {
+        border-radius: 8px;
+    }
+    
+    /* Feature cards */
+    .feature-card {
+        background: white;
         border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(99,102,241,0.15);
+    }
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .feature-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+    .feature-desc {
+        font-size: 0.9rem;
+        color: #64748b;
+    }
+    
+    /* Hero section */
+    .hero-badge {
+        display: inline-block;
+        background: #ede9fe;
+        color: #6366f1;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Sidebar */
+    [data-testid="stSidebar"] {
+        background: #f8fafc;
+    }
+    
+    /* Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+    }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px;
+        padding: 8px 16px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -138,9 +209,12 @@ def main():
     if "usage_count" not in st.session_state:
         st.session_state["usage_count"] = 0
     
+    # Hero badge
+    st.markdown('<span class="hero-badge">AI-Powered Architecture Advisor</span>', unsafe_allow_html=True)
+    
     # Header
     st.markdown('<p class="main-header">Jarwin AI</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-header">Your AI Architecture Advisor — Design smarter, build faster</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-header">Design smarter, build faster — Get your complete technology architecture in 30 seconds</p>', unsafe_allow_html=True)
     
     # LLM Status (hidden from users - not relevant)
     llm = get_llm()
@@ -310,25 +384,32 @@ def display_landing():
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.markdown("### 📊 Maturity Assessment")
-        st.write("Know your current level and get a clear path to enterprise-grade architecture.")
+        st.markdown("""<div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <div class="feature-title">Maturity Assessment</div>
+            <div class="feature-desc">Know your current level and get a clear path to enterprise-grade architecture</div>
+        </div>""", unsafe_allow_html=True)
     
     with col2:
-        st.markdown("### ⚖️ OSS vs Licensed")
-        st.write("Side-by-side comparison with real TCO math for every component in your stack.")
+        st.markdown("""<div class="feature-card">
+            <div class="feature-icon">⚖️</div>
+            <div class="feature-title">OSS vs Licensed</div>
+            <div class="feature-desc">Side-by-side comparison with real TCO math for every component in your stack</div>
+        </div>""", unsafe_allow_html=True)
     
     with col3:
-        st.markdown("### ✅ Compliance Ready")
-        st.write("Architecture validated against HIPAA, PCI-DSS, SOC2, GDPR, ISO27001 from day one.")
+        st.markdown("""<div class="feature-card">
+            <div class="feature-icon">✅</div>
+            <div class="feature-title">Compliance Ready</div>
+            <div class="feature-desc">Validated against HIPAA, PCI-DSS, SOC2, GDPR, ISO27001 from day one</div>
+        </div>""", unsafe_allow_html=True)
     
-    st.markdown("---")
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("### How Jarwin AI works")
     st.markdown("""
     1. **Tell us about your company** — industry, team size, budget, compliance needs
     2. **Jarwin AI analyzes** and designs your complete architecture
     3. **Get your blueprint** — phased roadmap, tool recommendations, compliance report, cost analysis
-    
-    Powered by verified tool data, real pricing, and compliance frameworks.
     """)
 
 
