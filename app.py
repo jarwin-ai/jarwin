@@ -4,6 +4,7 @@ Jarwin - Adaptive Architecture Blueprint System
 
 import streamlit as st
 import json
+import os
 from agents.context_agent import analyze_context, INDUSTRY_MAP, GROWTH_STAGES
 from agents.maturity_agent import assess_maturity
 from agents.tool_agent import recommend_tools
@@ -100,7 +101,7 @@ def show_pro_upgrade():
     st.markdown("---")
     
     pro_key = st.text_input("Have a Pro key? Enter it here:", type="password")
-    if pro_key and pro_key == "JARWIN-PRO-2024":
+    if pro_key and pro_key == os.environ.get("PRO_KEY", "JP2024X"):
         st.session_state["is_pro"] = True
         st.success("Pro activated! Refreshing...")
         st.rerun()
@@ -141,7 +142,7 @@ def main():
     
     # Check for admin mode
     query_params = st.query_params
-    if query_params.get("admin") == "jarwin2024":
+    if query_params.get("admin") == os.environ.get("ADMIN_KEY", "jrwn9210"):
         show_admin_dashboard()
         return
     

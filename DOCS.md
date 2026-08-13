@@ -141,7 +141,7 @@ print(blueprint["executive_summary"])
 
 ## Admin Dashboard
 
-Access at: `https://jarwin-ai.streamlit.app/?admin=jarwin2024`
+Access at: `https://jarwin-ai.streamlit.app/?admin=YOUR_KEY`
 
 Shows:
 - Total blueprints generated
