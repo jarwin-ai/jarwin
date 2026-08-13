@@ -231,7 +231,7 @@ def main():
     
     # Header
     st.markdown('<p class="main-header">Jarwin AI</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-header">Build Your Entire Company\'s Tech Stack In 30 Seconds — From Infrastructure To Operations, OSS To Enterprise</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-header">Design Your Entire Tech Architecture In 30 Seconds — From Infrastructure To Operations, OSS To Enterprise</p>', unsafe_allow_html=True)
     
     # LLM Status (hidden from users - not relevant)
     llm = get_llm()
