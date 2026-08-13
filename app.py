@@ -1,9 +1,5 @@
 """
-Jarwin V2 - Adaptive Architecture Blueprint System
-An AI-powered platform that generates E2E architecture recommendations
-with dual-path (OSS vs Licensed) comparison and compliance mapping.
-
-V2 Features: Chat interface, LLM integration, Agent memory, Agent collaboration
+Jarwin - Adaptive Architecture Blueprint System
 """
 
 import streamlit as st
@@ -101,10 +97,6 @@ def main():
     
     # LLM Status (hidden from users - not relevant)
     llm = get_llm()
-    if llm.available:
-        pass  # Don't show LLM status to users
-    else:
-        pass  # Don't show LLM status to users
     
     # Pro badge
     if st.session_state["is_pro"]:
@@ -224,7 +216,7 @@ def main():
     if st.session_state.get("generated"):
         blueprint = st.session_state["blueprint"]
         
-        # Run V2 agent collaboration (validation)
+        # Run validation (hidden from user - internal quality check)
         if "validation" not in st.session_state:
             context = st.session_state.get("last_context", {})
             recommendations = blueprint.get("architecture_recommendations", [])
@@ -234,15 +226,15 @@ def main():
         
         display_results(blueprint)
         
-        # Show validation results
+        # Show validation only if issues exist (user-friendly language)
         validation = st.session_state.get("validation", {})
         if validation.get("issues_found", 0) > 0:
-            with st.expander(f"🔍 Agent Validation ({validation['issues_found']} issue(s) found)", expanded=False):
+            with st.expander(f"💡 Optimization Notes ({validation['issues_found']} suggestion(s))", expanded=False):
                 for issue in validation.get("issues", []):
                     severity_icon = {"HIGH": "🔴", "MEDIUM": "🟡", "LOW": "🟢"}.get(issue["severity"], "⚪")
-                    st.write(f"{severity_icon} **{issue['type'].title()}**: {issue['message']}")
+                    st.write(f"{severity_icon} **{issue['type'].replace('_', ' ').title()}**: {issue['message']}")
                 if validation.get("improvements"):
-                    st.markdown("**Improvements suggested:**")
+                    st.markdown("**Suggestions:**")
                     for imp in validation["improvements"]:
                         st.write(f"→ {imp}")
     else:
@@ -281,7 +273,7 @@ def display_landing():
     2. **Get a complete E2E architecture** with phased roadmap, tool recommendations, and compliance report
     3. **Download the report** or ask follow-up questions
     
-    Built with real tool data, pricing, and compliance frameworks. Not AI hallucinations.
+    Powered by verified tool data, real pricing, and compliance frameworks.
     """)
 
 
@@ -314,7 +306,7 @@ I help companies design their complete technology stack — from databases to de
 
 Or just describe what you're building and I'll figure out the rest!
 
-💡 *Tip: Say "generate" or "recommend" when you want me to create your architecture blueprint.*"""
+💡 *Say "generate" or "recommend" when you want me to create your architecture blueprint.*"""
         
         with st.chat_message("assistant", avatar="🏗️"):
             st.markdown(welcome)
@@ -564,7 +556,7 @@ def display_full_report(blueprint):
         mime="application/json",
     )
     
-    with st.expander("View Raw JSON"):
+    with st.expander("View Detailed Data"):
         st.json(blueprint)
 
 
