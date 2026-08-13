@@ -231,7 +231,7 @@ def main():
     
     # Header
     st.markdown('<p class="main-header">Jarwin AI</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-header">Design smarter, build faster — Get your complete technology architecture in 30 seconds</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-header">Build your entire company\'s tech stack in 30 seconds — from infrastructure to operations, OSS to enterprise</p>', unsafe_allow_html=True)
     
     # LLM Status (hidden from users - not relevant)
     llm = get_llm()
@@ -477,19 +477,19 @@ def run_chat_mode():
     
     # Welcome message
     if not st.session_state.chat_messages:
-        welcome = """Hey! I'm **Jarwin AI**, your Architecture Advisor. 👋
+        welcome = """Hey! I'm **Jarwin AI** — your complete company architect. 👋
 
-I help companies design their complete technology stack — from databases to deployment.
+I don't just suggest tools. I design your **entire technology + operations stack** — infrastructure, DevOps, security, team structure, project management, analytics, compliance, and more.
 
-**To get started, tell me about your company:**
+**Tell me about your company:**
 - What **industry** are you in?
-- How big is your **engineering team**?
-- What's your **monthly tech budget**?
-- Any **compliance** requirements (HIPAA, PCI-DSS, SOC2)?
+- How big is your **team**?
+- What's your **monthly budget**?
+- Any **compliance** needs (HIPAA, PCI-DSS, SOC2)?
 
-Or just describe what you're building and I'll figure out the rest!
+Or describe what you're building — I'll design everything you need to launch and scale.
 
-💡 *Say "generate" or "recommend" when you want me to create your architecture blueprint.*"""
+💡 *Say "generate" when ready for your complete blueprint (14 sections).*"""
         
         with st.chat_message("assistant", avatar="🏗️"):
             st.markdown(welcome)

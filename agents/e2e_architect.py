@@ -457,7 +457,7 @@ def generate_automation(context: dict, maturity: dict) -> dict:
 
 
 def generate_full_e2e(context: dict, maturity: dict) -> dict:
-    """Generate complete 14-section E2E architecture."""
+    """Generate complete E2E architecture covering ALL business needs."""
     return {
         "architecture_pattern": generate_architecture_pattern(context, maturity),
         "code_framework": generate_code_framework(context),
@@ -470,6 +470,142 @@ def generate_full_e2e(context: dict, maturity: dict) -> dict:
         "disaster_recovery": generate_disaster_recovery(context, maturity),
         "data_architecture": generate_data_architecture(context, maturity),
         "automation": generate_automation(context, maturity),
+        "business_tools": generate_business_tools(context, maturity),
+        "analytics_bi": generate_analytics_bi(context, maturity),
+        "project_management": generate_project_management(context, maturity),
+    }
+
+
+def generate_business_tools(context: dict, maturity: dict) -> dict:
+    """Recommend business operations tools — ITSM, docs, communication, HR."""
+    team = context["organization"]["team_size"]
+    budget = context["organization"]["budget_monthly_usd"]
+    
+    if team <= 10:
+        tools = {
+            "communication": "Slack Free or Discord (team chat) + Google Meet (calls)",
+            "documentation": "Notion (wiki, docs, knowledge base) — free for small teams",
+            "itsm_helpdesk": "Not needed yet — use shared Slack channel for support",
+            "hr_people": "Deel or Remote (for contractors) + Google Sheets for tracking",
+            "crm": "HubSpot Free (contacts, deals, pipeline)",
+            "email": "Google Workspace ($6/user/mo) or free Gmail",
+            "design": "Figma Free (UI/UX) + Canva (marketing)",
+            "legal": "Docusign or PandaDoc for contracts",
+        }
+    elif team <= 50:
+        tools = {
+            "communication": "Slack Pro ($7.25/user) + Zoom (meetings) + Loom (async video)",
+            "documentation": "Notion Team or Confluence (structured wiki + docs)",
+            "itsm_helpdesk": "Jira Service Management or Freshdesk (customer support)",
+            "hr_people": "BambooHR or Zoho People (HR management + leave + payroll)",
+            "crm": "HubSpot Starter or Salesforce Essentials ($25/user)",
+            "email": "Google Workspace Business ($12/user/mo)",
+            "design": "Figma Pro ($15/editor) + Canva Pro",
+            "legal": "DocuSign Business + legal counsel retainer",
+            "service_management": "ServiceNow (if enterprise clients) or Freshservice",
+        }
+    else:
+        tools = {
+            "communication": "Slack Enterprise + Zoom Enterprise + Loom Business",
+            "documentation": "Confluence + Notion (hybrid) + internal wiki",
+            "itsm_helpdesk": "ServiceNow ITSM (enterprise-grade) or Jira Service Management Premium",
+            "hr_people": "Workday or SAP SuccessFactors (enterprise HR)",
+            "crm": "Salesforce Enterprise ($150/user) + Gainsight (customer success)",
+            "email": "Google Workspace Enterprise or Microsoft 365 E3",
+            "design": "Figma Enterprise + Adobe Creative Cloud",
+            "legal": "Ironclad (contract lifecycle) + in-house counsel",
+            "service_management": "ServiceNow + PagerDuty (incident management)",
+            "rpa_automation": "UiPath or Automation Anywhere (robotic process automation)",
+        }
+    
+    return {
+        **tools,
+        "preview": f"{tools['communication'][:30]} + {tools['documentation'][:20]}..."
+    }
+
+
+def generate_analytics_bi(context: dict, maturity: dict) -> dict:
+    """Recommend analytics, BI, and data tools."""
+    level = maturity["current_level"]
+    budget = context["organization"]["budget_monthly_usd"]
+    industry = context["organization"]["industry"]
+    
+    if level <= 1:
+        analytics = {
+            "product_analytics": "Mixpanel Free or PostHog (open source) — track user behavior",
+            "bi_dashboards": "Metabase (open source, self-host) or Google Looker Studio (free)",
+            "data_warehouse": "Not needed yet — query production DB directly with read replica",
+            "etl_pipeline": "Not needed yet — direct queries sufficient",
+            "ab_testing": "PostHog feature flags or Growthbook (open source)",
+            "cloud_analytics": "AWS CloudWatch or basic cloud dashboards",
+        }
+    elif level == 2:
+        analytics = {
+            "product_analytics": "Mixpanel or Amplitude ($0-1000/mo based on events)",
+            "bi_dashboards": "Metabase (OSS) or Looker Studio + dbt for transforms",
+            "data_warehouse": "BigQuery (GCP) or Redshift (AWS) — pay-per-query",
+            "etl_pipeline": "dbt (transform) + Airbyte (ingestion, open source)",
+            "ab_testing": "GrowthBook (OSS) or LaunchDarkly (feature flags)",
+            "cloud_analytics": "AWS Athena (query S3 data directly) + QuickSight",
+        }
+    else:
+        analytics = {
+            "product_analytics": "Amplitude Enterprise or Heap (auto-capture everything)",
+            "bi_dashboards": "Looker (GCP) or Tableau + dbt Cloud for modeling",
+            "data_warehouse": "Snowflake or BigQuery (scalable, separated compute/storage)",
+            "etl_pipeline": "dbt Cloud + Fivetran/Airbyte (managed ingestion) + Dagster (orchestration)",
+            "ab_testing": "Eppo or Statsig (statistical rigor) + feature management",
+            "cloud_analytics": "AWS Athena + Lake Formation + Redshift Spectrum",
+            "ml_analytics": "Vertex AI or SageMaker for predictive analytics",
+        }
+    
+    return {
+        **analytics,
+        "preview": f"{analytics['product_analytics'][:30]} + {analytics['data_warehouse'][:25] if 'data_warehouse' in analytics else ''}..."
+    }
+
+
+def generate_project_management(context: dict, maturity: dict) -> dict:
+    """Recommend project management, agile process, and delivery tools."""
+    team = context["organization"]["team_size"]
+    
+    if team <= 10:
+        pm = {
+            "methodology": "Kanban (continuous flow) — no heavy sprints for small teams",
+            "tool": "Linear (modern, fast) or Jira Free (up to 10 users)",
+            "sprint_structure": "Not needed — use weekly goals instead of sprints",
+            "roadmap": "Notion roadmap or Linear roadmap view",
+            "documentation": "Notion (all-in-one: docs + wiki + tasks)",
+            "retrospectives": "Bi-weekly team retro (15 min) — use FigJam or Notion",
+            "standup": "Daily async standup (Slack bot or Geekbot)",
+            "release_process": "Ship when ready — no release train needed yet",
+        }
+    elif team <= 30:
+        pm = {
+            "methodology": "Scrum — 2-week sprints, dedicated Scrum Master",
+            "tool": "Linear (recommended) or Jira Standard",
+            "sprint_structure": "2-week sprints: Planning (Mon) → Daily standup → Review (Fri) → Retro",
+            "roadmap": "Linear roadmap + quarterly OKRs (Notion or Lattice)",
+            "documentation": "Notion (team wiki) + ADRs in repo + Confluence for formal docs",
+            "retrospectives": "Every sprint — action items tracked and followed up",
+            "standup": "Daily sync standup (15 min) per squad",
+            "release_process": "Weekly releases (Tuesdays) with changelog",
+        }
+    else:
+        pm = {
+            "methodology": "SAFe (Scaled Agile) or custom hybrid — PI planning quarterly",
+            "tool": "Jira Premium + Confluence + Jira Align (cross-team)",
+            "sprint_structure": "2-week sprints within 10-week Program Increments (PIs)",
+            "roadmap": "Jira Align (portfolio) + quarterly PI planning events",
+            "documentation": "Confluence (enterprise wiki) + Notion (team-level) + ADRs",
+            "retrospectives": "Sprint retros + PI retrospective + innovation sprints",
+            "standup": "Squad standups (daily) + Scrum of Scrums (weekly) + ART sync",
+            "release_process": "Release train (bi-weekly) with feature flags + progressive rollout",
+        }
+    
+    return {
+        **pm,
+        "preview": f"{pm['methodology'][:40]} — {pm['tool'][:20]}..."
     }
 
 
@@ -486,4 +622,7 @@ E2E_SECTIONS = {
     "disaster_recovery": {"title": "Disaster Recovery", "icon": "🛡️"},
     "data_architecture": {"title": "Data Architecture", "icon": "🗄️"},
     "automation": {"title": "Automation & IaC", "icon": "⚙️"},
+    "business_tools": {"title": "Business Operations Tools", "icon": "🏢"},
+    "analytics_bi": {"title": "Analytics & BI Stack", "icon": "📈"},
+    "project_management": {"title": "Project Management & Agile", "icon": "📋"},
 }
