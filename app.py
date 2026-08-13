@@ -164,32 +164,11 @@ def main():
     else:
         free_left = max(0, 1 - st.session_state["usage_count"])
         if free_left > 0:
-            st.caption(f"Free Plan — {free_left} blueprint remaining")
+            st.caption(f"Free Plan — {free_left} blueprint remaining | [⭐ Upgrade to Jarwin Pro](mailto:krishnask921@gmail.com?subject=Jarwin%20Pro%20-%20Upgrade%20Request&body=Hi%20Jarwin%20Team%2C%0AI%20want%20to%20upgrade%20to%20Pro.)")
         else:
-            st.warning("⚠️ Free limit reached (1 blueprint). Upgrade to Jarwin Pro for unlimited access.")
+            st.warning("⚠️ Free limit reached. [⭐ Upgrade to Jarwin Pro](mailto:krishnask921@gmail.com?subject=Jarwin%20Pro%20-%20Upgrade%20Request&body=Hi%20Jarwin%20Team%2C%0AI%20want%20to%20upgrade%20to%20Pro.)")
             show_pro_upgrade()
             return
-    
-    # Always show Upgrade link (except for Pro users)
-    if not st.session_state["is_pro"]:
-        with st.expander("⭐ Upgrade to Jarwin Pro — $29/month", expanded=False):
-            st.markdown("""
-**Pro Plan includes:**
-- Unlimited blueprints
-- All 5 compliance frameworks (HIPAA, PCI-DSS, GDPR, ISO27001)
-- 50+ tools database
-- Full maturity roadmap (all 5 levels)
-- Priority support
-
-**To upgrade:** Email us at **krishnask921@gmail.com** with subject "Jarwin Pro"
-
-Or enter your Pro key below:
-""")
-            pro_key = st.text_input("Pro Access Key:", type="password", key="pro_key_main")
-            if pro_key and pro_key == "JARWIN-PRO-2024":
-                st.session_state["is_pro"] = True
-                st.success("Pro activated!")
-                st.rerun()
     
     # Mode selection
     mode = st.radio("Mode", ["💬 Chat Mode", "📋 Quick Mode (Form)"], horizontal=True, label_visibility="collapsed")
