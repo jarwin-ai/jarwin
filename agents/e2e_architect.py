@@ -483,6 +483,46 @@ def generate_full_e2e(context: dict, maturity: dict) -> dict:
         "automation": generate_automation(context, maturity),
         "business_tools": generate_business_tools(context, maturity),
         "analytics_bi": generate_analytics_bi(context, maturity),
+        "compliance_governance": generate_compliance_governance(context, maturity),
+    }
+
+
+def generate_compliance_governance(context: dict, maturity: dict) -> dict:
+    """Recommend compliance and governance approach."""
+    compliance = context["compliance"]["frameworks"]
+    level = maturity["current_level"]
+    
+    if level <= 1:
+        result = {
+            "frameworks": ", ".join(compliance) if compliance else "SOC2 (recommended for any SaaS)",
+            "approach": "Start documenting: access policies, change logs, incident procedures",
+            "tools": "Vanta or Drata (automated SOC2) — saves months of manual work",
+            "audit_readiness": "Begin SOC2 Type I preparation — takes 3-6 months",
+            "governance": "Basic: code reviews required, access reviews quarterly",
+            "data_policy": "Define data classification (public, internal, confidential, restricted)",
+        }
+    elif level == 2:
+        result = {
+            "frameworks": ", ".join(compliance) if compliance else "SOC2 Type II + GDPR",
+            "approach": "Automated compliance monitoring with continuous evidence collection",
+            "tools": "Vanta or Drata (automated) + external auditor (annual)",
+            "audit_readiness": "SOC2 Type II in progress — continuous monitoring",
+            "governance": "Change Advisory Board, access reviews monthly, vendor assessments",
+            "data_policy": "Data retention policies, DPA with vendors, privacy impact assessments",
+        }
+    else:
+        result = {
+            "frameworks": ", ".join(compliance) if compliance else "SOC2 + ISO27001 + GDPR + industry-specific",
+            "approach": "GRC platform with real-time compliance dashboard and automated remediation",
+            "tools": "ServiceNow GRC or OneTrust + Vanta + external Big 4 auditor",
+            "audit_readiness": "Always audit-ready — continuous compliance with automated evidence",
+            "governance": "Architecture Review Board + Security Council + quarterly risk assessments",
+            "data_policy": "Full data governance: lineage, classification, retention, cross-border controls",
+        }
+    
+    return {
+        **result,
+        "preview": f"{result['frameworks'][:30]} — {result['approach'][:30]}..."
     }
 
 
@@ -626,7 +666,7 @@ E2E_SECTIONS = {
     "devops_pipeline": {"title": "DevOps Pipeline", "icon": "🔄"},
     "infrastructure": {"title": "Infrastructure Design", "icon": "☁️"},
     "ai_ml_stack": {"title": "AI/ML Stack", "icon": "🤖"},
-    "team_and_process": {"title": "Team Structure & Agile Process", "icon": "👥"},
+    "team_and_process": {"title": "Team & Delivery Process", "icon": "👥"},
     "security_architecture": {"title": "Security Architecture", "icon": "🔒"},
     "testing_strategy": {"title": "Testing Strategy", "icon": "🧪"},
     "disaster_recovery": {"title": "Disaster Recovery", "icon": "🛡️"},
@@ -634,4 +674,5 @@ E2E_SECTIONS = {
     "automation": {"title": "Automation & IaC", "icon": "⚙️"},
     "business_tools": {"title": "Business Operations Tools", "icon": "🏢"},
     "analytics_bi": {"title": "Analytics & BI Stack", "icon": "📈"},
+    "compliance_governance": {"title": "Compliance & Governance", "icon": "📜"},
 }
