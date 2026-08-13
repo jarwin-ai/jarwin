@@ -1,209 +1,101 @@
-# Jarwin — Documentation
+# Jarwin AI — User Guide
 
-## Overview
+## Getting Started
 
-Jarwin is an Adaptive Architecture Blueprint System — a multi-agent AI platform that generates end-to-end technology architecture recommendations for companies based on their industry, size, compliance requirements, and budget.
-
-**Live App**: https://jarwin-ai.streamlit.app  
-**Source Code**: https://github.com/jarwin-ai/jarwin
-
----
-
-## How It Works
-
-### User Flow
-
-1. User visits `jarwin-ai.streamlit.app`
-2. Chooses **Chat Mode** (conversational) or **Quick Mode** (form-based)
-3. Provides company details (industry, team size, budget, compliance needs)
-4. Jarwin's agents collaborate to generate a complete architecture blueprint
-5. User receives: roadmap, tool recommendations, compliance report, cost analysis
-6. User can download the report as JSON
-
-### Agent Pipeline
-
-```
-User Input
-    │
-    ▼
-Context Agent — structures raw input into standardized profile
-    │
-    ▼
-Maturity Agent — determines current level (1-5) and target level
-    │
-    ▼
-Tool Agent — for each component, finds best OSS and Licensed tools
-    │
-    ▼
-Compliance Agent — validates all recommendations against regulatory frameworks
-    │
-    ▼
-Collaboration Agent — cross-checks for budget overruns, conflicts, gaps
-    │
-    ▼
-Blueprint Agent — assembles final output with cost projections
-    │
-    ▼
-Output: Architecture Blueprint (JSON + UI visualization)
-```
+1. Visit [jarwin-ai.streamlit.app](https://jarwin-ai.streamlit.app)
+2. Choose **Chat Mode** or **Quick Mode (Form)**
+3. Provide your company details
+4. Get your architecture blueprint
 
 ---
 
-## Maturity Levels
+## Chat Mode
 
-| Level | Name | Description | Typical Team |
-|-------|------|-------------|-------------|
-| 1 | Foundation | Single-region monolith, basic monitoring | 1-5 engineers |
-| 2 | Structured | Multi-AZ, automated CI/CD, APM | 5-20 engineers |
-| 3 | Scalable | Multi-region, microservices, service mesh | 20-100 engineers |
-| 4 | Resilient | Active-active, event sourcing, progressive delivery | 50-500 engineers |
-| 5 | Optimized | Global edge, self-healing, AI-driven ops | 200+ engineers |
+Talk to Jarwin AI naturally:
+- "I'm building a fintech app with 12 engineers on AWS"
+- "What database should I use?"
+- "What do I need for HIPAA compliance?"
+- "PostgreSQL vs MySQL?"
 
----
-
-## Scoring Algorithm
-
-Each tool is scored using a weighted formula:
-
-```
-Score = α×Compatibility + β×TCO + γ×Compliance + δ×Health + ε×Integration + ζ×TeamFit
-```
-
-Where:
-- **Compatibility** (20%): How well the tool fits requirements
-- **TCO** (25%): Total cost of ownership (lower = better score)
-- **Compliance** (30%): Coverage of required regulatory frameworks
-- **Health** (20%): Community health (OSS) or vendor stability (Licensed)
-- **Team Fit** (15%): Match with team's existing skills
+Say **"generate"** when ready for your full blueprint.
 
 ---
 
-## TCO Calculation
+## Quick Mode (Form)
 
-For each tool, TCO includes:
-- **Direct costs**: License fees, subscription costs
-- **Operational costs**: Maintenance time × team hourly rate
-- **Infrastructure costs**: Server/hosting costs for self-managed tools
-- **Total**: Sum projected over 36 months
+Fill in the sidebar:
+- Industry
+- Growth Stage
+- Team Size
+- Monthly Users
+- Budget
+- Cloud Preference
+- Deployment Regions
+- Uptime Requirement
 
----
-
-## Compliance Frameworks Supported
-
-| Framework | Available In | Industries | Key Controls |
-|-----------|-------------|-----------|-------------|
-| SOC2 | Free + Pro | SaaS, Enterprise Software | Access control, change management, monitoring |
-| HIPAA | Pro only | Healthcare, Health Tech | Encryption, audit logs, BAA, access control |
-| PCI-DSS | Pro only | Fintech, E-commerce, Banking | Network segmentation, WAF, vulnerability scanning |
-| GDPR | Pro only | Any (EU users) | Data residency, consent, right to erasure |
-| ISO27001 | Pro only | Enterprise, Government | ISMS policy, risk assessment, business continuity |
+Click **"Generate Architecture Blueprint"** to get results.
 
 ---
 
-## API / Programmatic Usage
+## What You Get
 
-Currently Jarwin runs as a Streamlit web app. API access is planned for Pro users.
-
-To use programmatically (local):
-
-```python
-from agents.context_agent import analyze_context
-from agents.maturity_agent import assess_maturity
-from agents.tool_agent import recommend_tools
-from agents.compliance_agent import check_compliance
-from agents.blueprint_agent import generate_blueprint
-
-# Define your company
-user_inputs = {
-    "industry": "fintech",
-    "team_size": 15,
-    "monthly_users": 50000,
-    "budget_monthly": 5000,
-    "growth_stage": "series_a",
-    "cloud_preference": "aws",
-    "oss_preference": "balanced",
-    "regions": ["us", "eu"],
-    "uptime_sla": 99.9,
-}
-
-# Run the pipeline
-context = analyze_context(user_inputs)
-maturity = assess_maturity(context)
-recommendations = recommend_tools(context, maturity)
-compliance = check_compliance(context, recommendations)
-blueprint = generate_blueprint(context, maturity, recommendations, compliance)
-
-# blueprint is a dict with full architecture plan
-print(blueprint["executive_summary"])
-```
+- **Executive Summary** — Current level, target level, timeline, cost
+- **Roadmap** — Phased plan with architecture details and transition triggers
+- **Tool Recommendations** — OSS vs Licensed for each component with TCO
+- **Compliance Report** — Framework coverage, gaps, remediation steps
+- **Cost Analysis** — OSS path vs Licensed path vs Recommended path
+- **Downloadable Report** — JSON format
 
 ---
 
-## Admin Dashboard
+## Plans & Pricing
 
-Access at: `https://jarwin-ai.streamlit.app/?admin=YOUR_KEY`
-
-Shows:
-- Total blueprints generated
-- Today's usage
-- Weekly usage
-- Total page visits
-- Top industries
-- Chat vs Form mode split
-
-**Note**: Change the admin key before sharing publicly.
-
----
-
-## Free vs Pro Comparison
-
-| Capability | Free (Demo) | Pro |
-|-----------|------------|-----|
+| Feature | Free | Pro ($29/mo) |
+|---------|------|-------------|
 | Blueprints/month | 1 | Unlimited |
-| Tool database | 15 tools | 50+ tools |
-| Compliance | SOC2 | All 5 frameworks |
-| Industries | SaaS, Fintech, Healthcare | All 14 |
+| Tools database | Basic | 50+ tools |
+| Compliance | SOC2 | HIPAA, PCI-DSS, SOC2, GDPR, ISO27001 |
 | Maturity levels | 1-2 | All 5 |
-| Agent collaboration | Disabled | Full |
-| LLM chat | Fallback only | Full AI |
-| TCO detail | Basic | Detailed |
+| Support | Community | Priority |
+
+**To upgrade:** Click "Upgrade to Jarwin Pro" in the app.
 
 ---
 
-## Deployment
+## Supported Industries
 
-### Streamlit Cloud (Current — Free)
-- Auto-deploys on every `git push` to `main` branch
-- URL: `jarwin-ai.streamlit.app`
-- Zero configuration needed
-
-### Self-Hosted (Alternative)
-```bash
-git clone https://github.com/jarwin-ai/jarwin.git
-cd jarwin
-pip install -r requirements.txt
-streamlit run app.py --server.port 8501
-```
+Healthcare, Fintech, Banking, E-commerce, SaaS, Enterprise Software, EdTech, Gaming, Social Media, Logistics, Government, Retail, Media, and more.
 
 ---
 
-## Roadmap
+## Supported Compliance Frameworks
 
-| Timeline | Feature |
-|----------|---------|
-| Done | V1: Core agents + Form UI |
-| Done | V2: Chat + LLM + Memory + Collaboration |
-| Done | Analytics + Pro paywall |
-| Next | PDF export for Pro users |
-| Next | More tools in knowledge base (200+) |
-| Next | API access for Pro users |
-| Future | Lifecycle monitoring (detect when to transition phases) |
-| Future | Infrastructure-as-Code output (Terraform/Pulumi) |
-| Future | Custom domain (jarwin.ai) |
+- HIPAA (Healthcare)
+- PCI-DSS (Payments)
+- SOC2 (SaaS/Enterprise)
+- GDPR (EU Users)
+- ISO27001 (Global Enterprise)
+
+---
+
+## FAQ
+
+**Q: Is it free?**  
+A: Yes — 1 blueprint per session is free. Pro gives unlimited access.
+
+**Q: Is my data stored?**  
+A: Session data is temporary and cleared when you close the browser.
+
+**Q: How accurate are the recommendations?**  
+A: Recommendations are based on verified tool data, real pricing, and industry best practices.
+
+**Q: Can I export the report?**  
+A: Yes — download as JSON from the "Full Report" tab.
 
 ---
 
 ## Contact
 
-- GitHub: https://github.com/jarwin-ai
+- Email: krishnask921@gmail.com
 - App: https://jarwin-ai.streamlit.app
+- Website: https://jarwin-landing.vercel.app
