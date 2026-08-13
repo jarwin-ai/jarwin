@@ -174,16 +174,38 @@ def generate_chat_response(messages: list, context: dict = None) -> dict:
     last_message = messages[-1]["content"] if messages else ""
     last_lower = last_message.lower()
     
-    # Check if user wants to generate architecture
-    trigger_words = ["generate", "recommend", "build", "design", "architecture", "what should i use",
-                     "suggest", "blueprint", "advise", "help me choose"]
-    wants_architecture = any(w in last_lower for w in trigger_words)
+    # Check if user explicitly wants to generate architecture
+    explicit_triggers = ["generate", "recommend", "build my", "design my", "create blueprint", "give me architecture"]
+    wants_architecture = any(w in last_lower for w in explicit_triggers)
     
-    # If enough context and user wants architecture, generate it
-    if wants_architecture or (context and len(messages) >= 2):
-        # Extract context from conversation
-        user_inputs = extract_context_from_chat(messages)
-        
+    # Extract what we know so far from conversation
+    user_inputs = extract_context_from_chat(messages)
+    
+    # Check what's missing
+    missing_fields = []
+    if user_inputs.get("budget_monthly", 2000) == 2000 and "budget" not in last_lower and "$" not in last_message:
+        missing_fields.append("monthly tech budget")
+    if user_inputs.get("growth_stage", "seed") == "seed" and not any(s in last_lower for s in ["seed", "series", "growth", "enterprise", "pre-seed"]):
+        missing_fields.append("growth stage (seed, Series A/B/C, growth, enterprise)")
+    if user_inputs.get("monthly_users", 10000) == 10000 and not any(w in last_lower for w in ["user", "customer", "visitor"]):
+        missing_fields.append("expected monthly users")
+    
+    # If user wants architecture but key info is missing, ask first
+    if wants_architecture and len(missing_fields) >= 2:
+        fields_text = "\n".join([f"- **{f}**" for f in missing_fields])
+        response = f"""I have some details but need a few more to give you the best recommendations:
+
+{fields_text}
+
+Share these and I'll generate your complete architecture blueprint!
+
+Or say **"generate anyway"** and I'll use reasonable defaults for what's missing."""
+        return {"response": response, "context": user_inputs, "blueprint": None}
+    
+    # If "generate anyway" or enough info available, produce blueprint
+    force_generate = "generate anyway" in last_lower or "go ahead" in last_lower
+    
+    if (wants_architecture and len(missing_fields) < 2) or force_generate:
         # Override with any existing context
         if context:
             for key, val in context.items():
@@ -217,6 +239,28 @@ Write 3-5 paragraphs. Be specific about tool names and costs. Be conversational.
         
         return {"response": summary, "context": user_inputs, "blueprint": blueprint}
     
+    # Not generating — continue conversation
+    # If we extracted some context, acknowledge it
+    extracted_info = []
+    if user_inputs.get("industry") != "saas":
+        extracted_info.append(f"Industry: **{user_inputs['industry'].replace('_', ' ').title()}**")
+    if user_inputs.get("team_size") != 10:
+        extracted_info.append(f"Team: **{user_inputs['team_size']} engineers**")
+    if user_inputs.get("cloud_preference") != "any":
+        extracted_info.append(f"Cloud: **{user_inputs['cloud_preference'].upper()}**")
+    
+    if extracted_info and not wants_architecture:
+        info_text = ", ".join(extracted_info)
+        missing_text = "\n".join([f"- {f}" for f in missing_fields[:3]])
+        
+        response = f"""Got it! Here's what I have so far: {info_text}
+
+To generate your architecture blueprint, I still need:
+{missing_text}
+
+Or say **"generate"** and I'll work with what I have (using defaults for the rest)."""
+        return {"response": response, "context": user_inputs, "blueprint": None}
+    
     # General conversation - use LLM if available
     if llm.available:
         conversation_text = "\n".join([f"{m['role']}: {m['content']}" for m in messages[-10:]])
@@ -229,7 +273,7 @@ Write 3-5 paragraphs. Be specific about tool names and costs. Be conversational.
             return {"response": response, "context": None, "blueprint": None}
     
     # Fallback: rule-based responses
-    return {"response": generate_fallback_response(last_message, messages), "context": None, "blueprint": None}
+    return {"response": generate_fallback_response(last_message, messages), "context": user_inputs, "blueprint": None}
 
 
 def generate_fallback_response(message: str, messages: list) -> str:
