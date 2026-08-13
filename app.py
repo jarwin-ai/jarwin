@@ -95,7 +95,7 @@ def show_pro_upgrade():
         st.write("- All compliance frameworks")
         st.write("- Priority support")
         st.markdown("**$29/month**")
-        st.link_button("🚀 Upgrade to Pro", "https://jarwin.gumroad.com/l/pro", type="primary")
+        st.link_button("🚀 Upgrade to Pro", "mailto:krishnask921@gmail.com?subject=Jarwin Pro Access&body=Hi, I want to upgrade to Jarwin Pro plan.", type="primary")
     
     st.markdown("---")
     
