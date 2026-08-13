@@ -66,12 +66,12 @@ def determine_target_level(current_level: int, context: dict) -> int:
     
     # Based on growth stage, suggest how far to aim
     stage_targets = {
-        "pre-seed": 1, "seed": 2, "series_a": 3,
+        "pre-seed": 2, "seed": 2, "series_a": 3,
         "series_b": 3, "series_c": 4, "growth": 4, "enterprise": 5
     }
     
     stage_target = stage_targets.get(stage, 2)
-    target = max(current_level, stage_target)
+    target = max(current_level + 1, stage_target)  # Always at least 1 level above
     return min(target, 5)
 
 
