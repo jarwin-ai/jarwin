@@ -73,6 +73,66 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+def show_pro_upgrade():
+    """Show the Pro upgrade screen."""
+    st.markdown("---")
+    st.markdown("## ⭐ Upgrade to Jarwin Pro")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("### Free Plan")
+        st.write("- 1 blueprint/month")
+        st.write("- Basic recommendations")
+        st.write("- Community support")
+        st.markdown("**$0/month**")
+    
+    with col2:
+        st.markdown("### Pro Plan")
+        st.write("- Unlimited blueprints")
+        st.write("- Detailed TCO analysis")
+        st.write("- PDF export")
+        st.write("- All compliance frameworks")
+        st.write("- Priority support")
+        st.markdown("**$29/month**")
+        st.link_button("🚀 Upgrade to Pro", "https://jarwin.gumroad.com/l/pro", type="primary")
+    
+    st.markdown("---")
+    
+    pro_key = st.text_input("Have a Pro key? Enter it here:", type="password")
+    if pro_key and pro_key == "JARWIN-PRO-2024":
+        st.session_state["is_pro"] = True
+        st.success("Pro activated! Refreshing...")
+        st.rerun()
+
+
+def show_admin_dashboard():
+    """Admin dashboard."""
+    st.markdown("## Jarwin Admin Dashboard")
+    st.markdown("---")
+    
+    stats = get_stats()
+    
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Total Blueprints", stats["total_blueprints"])
+    col2.metric("Today", stats["today_blueprints"])
+    col3.metric("This Week", stats["weekly_blueprints"])
+    col4.metric("Total Visits", stats["total_visits"])
+    
+    st.markdown("---")
+    
+    st.markdown("### Top Industries")
+    if stats["top_industries"]:
+        for ind in stats["top_industries"]:
+            st.write(f"• **{ind['industry'].replace('_',' ').title()}**: {ind['count']} blueprints")
+    else:
+        st.write("No data yet")
+    
+    st.markdown("### Mode Split")
+    st.write(f"• Chat Mode: {stats['mode_split']['chat']}")
+    st.write(f"• Form Mode: {stats['mode_split']['form']}")
+
+
 def main():
     # Track page visit
     if "visited" not in st.session_state:
@@ -562,64 +622,3 @@ def display_full_report(blueprint):
 
 if __name__ == "__main__":
     main()
-
-
-def show_pro_upgrade():
-    """Show the Pro upgrade screen."""
-    st.markdown("---")
-    st.markdown("## ⭐ Upgrade to Jarwin Pro")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("### Free Plan")
-        st.write("- 3 blueprints/month")
-        st.write("- Basic recommendations")
-        st.write("- Community support")
-        st.markdown("**$0/month**")
-    
-    with col2:
-        st.markdown("### Pro Plan")
-        st.write("- Unlimited blueprints")
-        st.write("- Detailed TCO analysis")
-        st.write("- PDF export")
-        st.write("- Compliance audit report")
-        st.write("- Priority support")
-        st.markdown("**$29/month**")
-        st.link_button("🚀 Upgrade to Pro", "https://jarwin.gumroad.com/l/pro", type="primary")
-    
-    st.markdown("---")
-    
-    # Allow Pro key entry
-    pro_key = st.text_input("Have a Pro key? Enter it here:", type="password")
-    if pro_key and pro_key == "JARWIN-PRO-2024":
-        st.session_state["is_pro"] = True
-        st.success("Pro activated! Refreshing...")
-        st.rerun()
-
-
-def show_admin_dashboard():
-    """Admin dashboard — shows usage analytics."""
-    st.markdown("## 🔒 Jarwin Admin Dashboard")
-    st.markdown("---")
-    
-    stats = get_stats()
-    
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Total Blueprints", stats["total_blueprints"])
-    col2.metric("Today", stats["today_blueprints"])
-    col3.metric("This Week", stats["weekly_blueprints"])
-    col4.metric("Total Visits", stats["total_visits"])
-    
-    st.markdown("---")
-    
-    st.markdown("### Top Industries")
-    if stats["top_industries"]:
-        for ind in stats["top_industries"]:
-            st.write(f"• **{ind['industry'].replace('_',' ').title()}**: {ind['count']} blueprints")
-    else:
-        st.write("No data yet")
-    
-    st.markdown("### Mode Split")
-    st.write(f"• Chat Mode: {stats['mode_split']['chat']}")
-    st.write(f"• Form Mode: {stats['mode_split']['form']}")
