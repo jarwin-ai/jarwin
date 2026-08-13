@@ -443,12 +443,14 @@ def run_chat_mode():
     
     # Show past chat history if toggled
     if st.session_state.get("show_history") and st.session_state.chat_history_all:
-        with st.expander("📜 Previous Conversations", expanded=True):
+        with st.expander("📜 Previous Conversations", expanded=False):
             for i, chat in enumerate(reversed(st.session_state.chat_history_all)):
-                st.caption(f"Conversation {len(st.session_state.chat_history_all) - i}")
-                for msg in chat[:4]:  # Show first 4 messages preview
-                    if msg["role"] == "user":
-                        st.markdown(f"**You:** {msg['content'][:100]}...")
+                user_msgs = [m for m in chat if m["role"] == "user"]
+                if user_msgs:
+                    preview = user_msgs[0]["content"][:80]
+                    st.markdown(f"**Chat {len(st.session_state.chat_history_all) - i}:** {preview}...")
+                else:
+                    st.markdown(f"**Chat {len(st.session_state.chat_history_all) - i}:** (empty)")
                 st.markdown("---")
     
     # Display chat messages
