@@ -183,7 +183,7 @@ def main():
             index=1,
         )
         
-        team_size = st.slider("Engineering Team Size", min_value=1, max_value=500, value=10)
+        team_size = st.number_input("Engineering Team Size", min_value=1, max_value=500, value=10, step=1)
         monthly_users = st.number_input("Expected Monthly Active Users", min_value=100, max_value=100_000_000, value=10000, step=1000)
         budget_monthly = st.number_input("Monthly Tech Budget (USD)", min_value=0, max_value=1_000_000, value=2000, step=500)
         
