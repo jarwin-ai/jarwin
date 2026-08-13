@@ -166,9 +166,13 @@ def main():
         if free_left > 0:
             st.caption(f"Free Plan — {free_left} blueprint remaining")
         else:
-            st.warning("⚠️ Free limit reached (1 blueprint). Upgrade to Pro for unlimited access.")
+            st.warning("⚠️ Free limit reached (1 blueprint). Upgrade to Jarwin Pro for unlimited access.")
             show_pro_upgrade()
             return
+    
+    # Always show Upgrade link (except for Pro users)
+    if not st.session_state["is_pro"]:
+        st.link_button("⭐ Upgrade to Jarwin Pro", "mailto:krishnask921@gmail.com?subject=Jarwin Pro - Upgrade Request&body=Hi Jarwin Team,%0D%0A%0D%0AI've been using Jarwin and I'm interested in upgrading to the Pro plan ($29/month).%0D%0A%0D%0AI'd like access to:%0D%0A- Unlimited blueprints%0D%0A- All compliance frameworks (HIPAA, PCI-DSS, GDPR, ISO27001)%0D%0A- Full tool database (50+ tools)%0D%0A- All maturity levels%0D%0A%0D%0APlease share the payment details and Pro access key.%0D%0A%0D%0AMy company details:%0D%0AIndustry: %0D%0ATeam size: %0D%0A%0D%0AThanks!")
     
     # Mode selection
     mode = st.radio("Mode", ["💬 Chat Mode", "📋 Quick Mode (Form)"], horizontal=True, label_visibility="collapsed")
