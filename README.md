@@ -1,6 +1,6 @@
 # Jarwin AI
 
-**Your AI Architecture Advisor** — Design Your Entire Tech Architecture In 30 Seconds.
+**Design Your Entire Tech Architecture In 30 Seconds.**
 
 **Website**: [jarwin-landing.vercel.app](https://jarwin-landing.vercel.app)  
 **App**: [jarwin-ai.streamlit.app](https://jarwin-ai.streamlit.app)
@@ -10,6 +10,8 @@
 ## What Is Jarwin AI?
 
 Jarwin AI generates complete end-to-end technology architecture for companies in 30 seconds. Not just tool lists — a full blueprint covering 14 sections from infrastructure to compliance.
+
+Covers 200+ tools across infrastructure, security, DevOps, analytics, compliance, and operations — both open-source and enterprise-grade.
 
 ---
 
@@ -27,10 +29,10 @@ Jarwin AI generates complete end-to-end technology architecture for companies in
 10. Data Architecture
 11. Automation & IaC
 12. Business Operations Tools
-13. Analytics & BI Stack
+13. Analytics, BI & Digital Measurement
 14. Compliance & Governance
 
-Plus: Tool recommendations (OSS vs Licensed), cost projections, and progressive maturity roadmap.
+Plus: OSS vs Licensed comparison with TCO, cost projections, and progressive maturity roadmap.
 
 ---
 
@@ -39,9 +41,10 @@ Plus: Tool recommendations (OSS vs Licensed), cost projections, and progressive 
 | | Free | Pro ($29/mo) | Enterprise ($99/mo) |
 |---|---|---|---|
 | Blueprints | 1/month | Unlimited | Unlimited |
-| Architecture Sections | 3 (preview rest) | All 14 | All 14 + updates |
-| Tools | Basic | 50+ | 50+ custom |
+| Architecture Sections | 3 (preview rest) | All 14 | All 14 + quarterly review |
+| Tools | Basic | 200+ | 200+ custom |
 | Compliance | Status only | Full report | Audit-ready PDF |
+| Tool Links | — | Direct links to docs & downloads | Direct links + custom |
 | Support | — | Email (48hr) | Priority (4hr) + monthly call |
 
 ---
