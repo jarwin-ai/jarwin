@@ -25,6 +25,11 @@ st.set_page_config(
     page_icon="🏗️",
     layout="wide",
     initial_sidebar_state="expanded",
+    menu_items={
+        'Get help': None,
+        'Report a Bug': None,
+        'About': None
+    }
 )
 
 # Custom CSS
