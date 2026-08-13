@@ -17,6 +17,7 @@ from agents.chat_agent import generate_chat_response
 from agents.collaboration import validate_recommendations
 from agents.memory import save_company, list_companies, save_session
 from agents.llm_engine import get_llm
+from agents.analytics import track_event, get_stats
 
 # Page config
 st.set_page_config(
@@ -72,6 +73,23 @@ st.markdown("""
 
 
 def main():
+    # Track page visit
+    if "visited" not in st.session_state:
+        track_event("page_visit")
+        st.session_state["visited"] = True
+    
+    # Check for admin mode
+    query_params = st.query_params
+    if query_params.get("admin") == "jarwin2024":
+        show_admin_dashboard()
+        return
+    
+    # Check Pro status
+    if "is_pro" not in st.session_state:
+        st.session_state["is_pro"] = False
+    if "usage_count" not in st.session_state:
+        st.session_state["usage_count"] = 0
+    
     # Header
     st.markdown('<p class="main-header">Jarwin</p>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Adaptive Architecture Blueprint System — Your AI Architecture Advisor</p>', unsafe_allow_html=True)
@@ -82,6 +100,18 @@ def main():
         st.caption(f"🟢 LLM Connected ({llm.provider})")
     else:
         st.caption("⚪ Running in structured mode (install Ollama for chat AI)")
+    
+    # Pro badge
+    if st.session_state["is_pro"]:
+        st.caption("⭐ Pro Plan Active")
+    else:
+        free_left = max(0, 3 - st.session_state["usage_count"])
+        if free_left > 0:
+            st.caption(f"Free Plan — {free_left} blueprint(s) remaining")
+        else:
+            st.warning("⚠️ Free limit reached (3 blueprints). Upgrade to Pro for unlimited access.")
+            show_pro_upgrade()
+            return
     
     # Mode selection
     mode = st.radio("Mode", ["💬 Chat Mode", "📋 Quick Mode (Form)"], horizontal=True, label_visibility="collapsed")
@@ -169,6 +199,10 @@ def main():
         
         with st.spinner("Generating blueprint..."):
             blueprint = generate_blueprint(context, maturity, recommendations, compliance)
+        
+        # Track usage
+        st.session_state["usage_count"] += 1
+        track_event("blueprint_generated", industry=industry, mode="form", details={"level": maturity["current_level"], "target": maturity["target_level"]})
         
         # Store in session
         st.session_state["blueprint"] = blueprint
@@ -531,3 +565,64 @@ def display_full_report(blueprint):
 
 if __name__ == "__main__":
     main()
+
+
+def show_pro_upgrade():
+    """Show the Pro upgrade screen."""
+    st.markdown("---")
+    st.markdown("## ⭐ Upgrade to Jarwin Pro")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("### Free Plan")
+        st.write("- 3 blueprints/month")
+        st.write("- Basic recommendations")
+        st.write("- Community support")
+        st.markdown("**$0/month**")
+    
+    with col2:
+        st.markdown("### Pro Plan")
+        st.write("- Unlimited blueprints")
+        st.write("- Detailed TCO analysis")
+        st.write("- PDF export")
+        st.write("- Compliance audit report")
+        st.write("- Priority support")
+        st.markdown("**$29/month**")
+        st.link_button("🚀 Upgrade to Pro", "https://jarwin.gumroad.com/l/pro", type="primary")
+    
+    st.markdown("---")
+    
+    # Allow Pro key entry
+    pro_key = st.text_input("Have a Pro key? Enter it here:", type="password")
+    if pro_key and pro_key == "JARWIN-PRO-2024":
+        st.session_state["is_pro"] = True
+        st.success("Pro activated! Refreshing...")
+        st.rerun()
+
+
+def show_admin_dashboard():
+    """Admin dashboard — shows usage analytics."""
+    st.markdown("## 🔒 Jarwin Admin Dashboard")
+    st.markdown("---")
+    
+    stats = get_stats()
+    
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Total Blueprints", stats["total_blueprints"])
+    col2.metric("Today", stats["today_blueprints"])
+    col3.metric("This Week", stats["weekly_blueprints"])
+    col4.metric("Total Visits", stats["total_visits"])
+    
+    st.markdown("---")
+    
+    st.markdown("### Top Industries")
+    if stats["top_industries"]:
+        for ind in stats["top_industries"]:
+            st.write(f"• **{ind['industry'].replace('_',' ').title()}**: {ind['count']} blueprints")
+    else:
+        st.write("No data yet")
+    
+    st.markdown("### Mode Split")
+    st.write(f"• Chat Mode: {stats['mode_split']['chat']}")
+    st.write(f"• Form Mode: {stats['mode_split']['form']}")
