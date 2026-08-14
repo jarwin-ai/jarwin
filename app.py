@@ -452,7 +452,7 @@ def display_landing():
         </div>""", unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<h3 style="margin-top:1.5rem;">How Jarwin AI Works</h3>', unsafe_allow_html=True)
+    st.markdown('<p style="margin-top:1.5rem;font-size:1.4rem;font-weight:700;color:#f1f5f9;">How Jarwin AI Works</p>', unsafe_allow_html=True)
     st.markdown("""
     1. **Tell us about your company** — industry, team size, budget, compliance needs
     2. **Jarwin AI analyzes** and designs your complete architecture
