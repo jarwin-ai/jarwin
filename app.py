@@ -472,32 +472,34 @@ def run_chat_mode():
     if "chat_history_all" not in st.session_state:
         st.session_state.chat_history_all = []
     
-    # Clear chat button + history toggle
-    col_a, col_b = st.columns([1, 1])
-    with col_a:
-        if st.button("🗑️ Clear Chat"):
-            # Save current chat to history before clearing
+    # Sidebar: Chat history + help
+    with st.sidebar:
+        st.markdown("### 💬 Chat Mode")
+        st.markdown("---")
+        
+        if st.button("🗑️ Clear Chat", use_container_width=True):
             if st.session_state.chat_messages:
                 st.session_state.chat_history_all.append(st.session_state.chat_messages.copy())
             st.session_state.chat_messages = []
             st.session_state.chat_context = None
             st.rerun()
-    with col_b:
+        
+        st.markdown("---")
+        st.markdown("### 📌 Quick Commands")
+        st.caption("Try typing these:")
+        st.code("generate fintech 20 engineers $5000", language=None)
+        st.code("which cloud for healthcare?", language=None)
+        st.code("PostgreSQL vs MySQL?", language=None)
+        st.code("what about HIPAA?", language=None)
+        st.code("best monitoring tool?", language=None)
+        
         if st.session_state.chat_history_all:
-            if st.button(f"📜 Past Chats ({len(st.session_state.chat_history_all)})"):
-                st.session_state["show_history"] = not st.session_state.get("show_history", False)
-    
-    # Show past chat history if toggled
-    if st.session_state.get("show_history") and st.session_state.chat_history_all:
-        with st.expander("📜 Previous Conversations", expanded=False):
+            st.markdown("---")
+            st.markdown(f"### 📜 Past Chats ({len(st.session_state.chat_history_all)})")
             for i, chat in enumerate(reversed(st.session_state.chat_history_all)):
                 user_msgs = [m for m in chat if m["role"] == "user"]
                 if user_msgs:
-                    preview = user_msgs[0]["content"][:80]
-                    st.markdown(f"**Chat {len(st.session_state.chat_history_all) - i}:** {preview}...")
-                else:
-                    st.markdown(f"**Chat {len(st.session_state.chat_history_all) - i}:** (empty)")
-                st.markdown("---")
+                    st.caption(f"Chat {len(st.session_state.chat_history_all) - i}: {user_msgs[0]['content'][:40]}...")
     
     # Display chat messages
     for msg in st.session_state.chat_messages:
