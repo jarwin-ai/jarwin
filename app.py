@@ -40,7 +40,7 @@ st.markdown("""
     
     /* Reduce top padding */
     .block-container {
-        padding-top: 1rem !important;
+        padding-top: 2rem !important;
     }
     
     /* Main header */
@@ -124,7 +124,6 @@ st.markdown("""
     /* Sidebar */
     [data-testid="stSidebar"] {
         background: #1e293b;
-        min-width: 21rem !important;
     }
     
     /* Tabs */
