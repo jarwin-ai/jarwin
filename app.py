@@ -275,69 +275,65 @@ def main():
         run_chat_mode()
         return
     
-    # Sidebar - Input Form
-    with st.sidebar:
-        st.markdown("### 🏢 About Your Company")
-        
+    # Quick Mode - Form in main area (no sidebar dependency)
+    st.markdown("---")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
         industry = st.selectbox(
             "Industry",
             options=list(INDUSTRY_MAP.keys()),
             format_func=lambda x: x.replace("_", " ").title(),
         )
-        
+        team_size = st.number_input("Engineering Team Size", min_value=1, max_value=500, value=10, step=1)
+        budget_monthly = st.number_input("Monthly Tech Budget (USD)", min_value=0, max_value=1_000_000, value=2000, step=500)
+    
+    with col2:
         growth_stage = st.selectbox(
             "Growth Stage",
             options=GROWTH_STAGES,
             format_func=lambda x: x.replace("_", " ").title(),
             index=1,
         )
-        
-        team_size = st.number_input("Engineering Team Size", min_value=1, max_value=500, value=10, step=1)
         monthly_users = st.number_input("Expected Monthly Users", min_value=100, max_value=100_000_000, value=10000, step=1000)
-        budget_monthly = st.number_input("Monthly Tech Budget (USD)", min_value=0, max_value=1_000_000, value=2000, step=500)
-        
-        st.markdown("---")
-        st.markdown("### 🛠️ Technical Details")
-        
+        cloud_pref = st.selectbox("Cloud Preference", ["any", "aws", "gcp", "azure", "multi-cloud"])
+    
+    with col3:
         product_type = st.selectbox(
             "Product Type",
             options=["web_app", "mobile_app", "api_backend", "marketplace", "saas_platform", "internal_tool"],
             format_func=lambda x: x.replace("_", " ").title(),
         )
-        
         starting_point = st.selectbox(
             "Starting Point",
             options=["building_from_scratch", "migrating_existing", "scaling_current"],
             format_func=lambda x: x.replace("_", " ").title(),
         )
-        
-        cloud_pref = st.selectbox("Cloud Preference", ["any", "aws", "gcp", "azure", "multi-cloud"])
-        
         oss_pref = st.select_slider(
             "Open Source Preference",
             options=["oss_first", "balanced", "licensed_first"],
             value="balanced",
             format_func=lambda x: {"oss_first": "Prefer OSS", "balanced": "Balanced", "licensed_first": "Prefer Licensed"}[x],
         )
-        
-        st.markdown("---")
-        st.markdown("### 🌍 Deployment & Compliance")
-        
+    
+    col_r1, col_r2 = st.columns(2)
+    with col_r1:
         regions = st.multiselect(
             "Deployment Regions",
             ["us", "eu", "uk", "asia", "australia", "india", "global"],
             default=["us"],
         )
-        
+    with col_r2:
         uptime_sla = st.select_slider(
             "Uptime Requirement",
             options=[99.0, 99.5, 99.9, 99.95, 99.99],
             value=99.9,
             format_func=lambda x: f"{x}%",
         )
-        
-        st.markdown("---")
-        generate_btn = st.button("🚀 Generate Architecture Blueprint", type="primary", use_container_width=True)
+    
+    st.markdown("")
+    generate_btn = st.button("🚀 Generate Architecture Blueprint", type="primary", use_container_width=True)
     
     # Main content
     if generate_btn:
