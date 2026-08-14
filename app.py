@@ -50,17 +50,17 @@ st.markdown("""
     }
     .sub-header {
         font-size: 1.15rem;
-        color: #64748b;
+        color: #94a3b8;
         margin-bottom: 1rem;
     }
     
     /* Cards */
     div[data-testid="stMetric"] {
-        background: #f8fafc;
+        background: #1e293b;
         padding: 1rem;
         border-radius: 12px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        border: 1px solid #334155;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
     
     /* Buttons */
@@ -76,17 +76,17 @@ st.markdown("""
     
     /* Feature cards */
     .feature-card {
-        background: white;
-        border: 1px solid #e2e8f0;
+        background: #1e293b;
+        border: 1px solid #334155;
         border-radius: 16px;
         padding: 2rem;
         text-align: center;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         transition: transform 0.2s, box-shadow 0.2s;
     }
     .feature-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 16px rgba(99,102,241,0.15);
+        box-shadow: 0 4px 16px rgba(129,140,248,0.2);
     }
     .feature-icon {
         font-size: 2.5rem;
@@ -95,29 +95,30 @@ st.markdown("""
     .feature-title {
         font-size: 1.1rem;
         font-weight: 700;
-        color: #1e293b;
+        color: #f1f5f9;
         margin-bottom: 0.5rem;
     }
     .feature-desc {
         font-size: 0.9rem;
-        color: #64748b;
+        color: #94a3b8;
     }
     
     /* Hero section */
     .hero-badge {
         display: inline-block;
-        background: #ede9fe;
-        color: #6366f1;
+        background: rgba(129,140,248,0.15);
+        color: #a5b4fc;
         padding: 4px 12px;
         border-radius: 20px;
         font-size: 0.8rem;
         font-weight: 600;
         margin-bottom: 0.5rem;
+        border: 1px solid rgba(129,140,248,0.3);
     }
     
     /* Sidebar */
     [data-testid="stSidebar"] {
-        background: #f8fafc;
+        background: #1e293b;
     }
     
     /* Tabs */
