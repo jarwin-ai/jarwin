@@ -497,7 +497,7 @@ def run_chat_mode():
     if not st.session_state.chat_messages:
         welcome = """Hey! I'm **Jarwin AI** — your complete company architect. 👋
 
-I don't just suggest tools. I design your **entire technology + operations stack** — infrastructure, DevOps, security, team structure, project management, analytics, compliance, and more.
+I design your **entire technology + operations stack** — infrastructure, DevOps, security, team structure, analytics, compliance, and more. With direct links to docs & downloads for every recommended tool.
 
 ---
 
