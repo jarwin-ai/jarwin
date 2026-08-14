@@ -116,9 +116,17 @@ st.markdown("""
         border: 1px solid rgba(129,140,248,0.3);
     }
     
-    /* Sidebar */
+    /* Sidebar - always visible, not collapsible */
     [data-testid="stSidebar"] {
         background: #1e293b;
+    }
+    [data-testid="collapsedControl"] {
+        display: none !important;
+    }
+    [data-testid="stSidebar"][aria-expanded="false"] {
+        display: block !important;
+        min-width: 250px !important;
+        transform: none !important;
     }
     
     /* Tabs */

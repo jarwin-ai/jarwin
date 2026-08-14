@@ -8,6 +8,9 @@ gatherUsageStats = false
 showSidebarNavigation = false
 toolbarMode = "minimal"
 
+[ui]
+hideSidebarNav = true
+
 [theme]
 base = "dark"
 primaryColor = "#818cf8"
