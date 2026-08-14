@@ -40,10 +40,7 @@ st.markdown("""
     
     /* Reduce top padding */
     .block-container {
-        padding-top: 0.5rem !important;
-    }
-    [data-testid="stAppViewBlockContainer"] {
-        padding-top: 0.5rem !important;
+        padding-top: 1rem !important;
     }
     
     /* Main header */
@@ -124,27 +121,9 @@ st.markdown("""
         border: 1px solid rgba(129,140,248,0.3);
     }
     
-    /* Sidebar - always visible, not collapsible */
+    /* Sidebar */
     [data-testid="stSidebar"] {
         background: #1e293b;
-    }
-    [data-testid="collapsedControl"] {
-        display: none !important;
-        visibility: hidden !important;
-    }
-    [data-testid="stSidebar"][aria-expanded="false"] {
-        display: block !important;
-        min-width: 250px !important;
-        transform: none !important;
-    }
-    section[data-testid="stSidebar"] > div:first-child {
-        padding-top: 1rem;
-    }
-    button[kind="header"] {
-        display: none !important;
-    }
-    .css-1544g2n {
-        padding-top: 1rem;
     }
     
     /* Tabs */
@@ -298,8 +277,6 @@ def main():
     
     # Sidebar - Input Form
     with st.sidebar:
-        st.markdown('<p style="font-size:1.5rem;font-weight:800;margin-bottom:0.5rem;"><span style="color:#f1f5f9;">Jarwin</span> <span style="background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">AI</span></p>', unsafe_allow_html=True)
-        st.markdown("---")
         st.markdown("### 🏢 About Your Company")
         
         industry = st.selectbox(
@@ -496,8 +473,6 @@ def run_chat_mode():
     
     # Sidebar: Chat history + help
     with st.sidebar:
-        st.markdown('<p style="font-size:1.5rem;font-weight:800;margin-bottom:0.5rem;"><span style="color:#f1f5f9;">Jarwin</span> <span style="background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">AI</span></p>', unsafe_allow_html=True)
-        st.markdown("---")
         st.markdown("### 📌 Quick Commands")
         st.caption("Try typing these:")
         st.caption("• generate fintech 20 engineers")
