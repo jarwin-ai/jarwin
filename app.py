@@ -125,6 +125,15 @@ st.markdown("""
     [data-testid="stSidebar"] {
         background: #1e293b;
     }
+    [data-testid="collapsedControl"] {
+        display: none !important;
+    }
+    [data-testid="stSidebar"][aria-expanded="false"] {
+        display: block !important;
+        min-width: 21rem !important;
+        transform: none !important;
+        position: relative !important;
+    }
     
     /* Tabs */
     .stTabs [data-baseweb="tab-list"] {
