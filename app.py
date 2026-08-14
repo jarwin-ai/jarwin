@@ -138,9 +138,19 @@ def show_pro_upgrade():
     st.markdown("---")
     st.markdown("## ⭐ Upgrade to Jarwin Pro")
     
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     
     with col1:
+        st.markdown("### Free")
+        st.write("- 1 blueprint/month")
+        st.write("- Top 5 tools")
+        st.write("- 3 architecture sections")
+        st.write("- Compliance status")
+        st.write("- Total cost estimate")
+        st.markdown("**$0**")
+        st.caption("✅ Current plan")
+    
+    with col2:
         st.markdown("### 📄 Single Report")
         st.write("- 1 full blueprint (all 14 sections)")
         st.write("- All tools (200+)")
@@ -151,7 +161,7 @@ def show_pro_upgrade():
         st.markdown("**$99 one-time**")
         st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;background:linear-gradient(135deg,#6366f1,#a855f7);color:white;padding:10px 20px;border-radius:8px;font-weight:600;">📄 Get Report</span>', unsafe_allow_html=True)
     
-    with col2:
+    with col3:
         st.markdown("### ⭐ Pro Monthly")
         st.write("- Unlimited blueprints")
         st.write("- All 14 architecture sections")
@@ -164,7 +174,7 @@ def show_pro_upgrade():
         st.markdown("**$29/month**")
         st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;background:linear-gradient(135deg,#6366f1,#a855f7);color:white;padding:10px 20px;border-radius:8px;font-weight:600;">⭐ Get Pro</span>', unsafe_allow_html=True)
     
-    with col3:
+    with col4:
         st.markdown("### 🚀 Enterprise")
         st.write("- Everything in Pro")
         st.write("- 30-min architecture call/month")
