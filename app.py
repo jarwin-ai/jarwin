@@ -347,7 +347,7 @@ def main():
         generate_btn = st.button("🚀 Generate Architecture Blueprint", type="primary", use_container_width=True, key="sidebar_gen")
     
     # Fallback form in main area (for when sidebar is hidden)
-    with st.expander("📋 On mobile or sidebar hidden? Generate your blueprint here", expanded=False):
+    with st.expander("📋 Alternative: Fill details here to generate (if left sidebar isn't visible)", expanded=False):
         col1, col2, col3 = st.columns(3)
         with col1:
             fb_industry = st.selectbox("Industry", options=list(INDUSTRY_MAP.keys()), format_func=lambda x: x.replace("_", " ").title(), key="fb_industry")
