@@ -38,14 +38,15 @@ Plus: OSS vs Licensed comparison with TCO, cost projections, and progressive mat
 
 ## Plans
 
-| | Free | Pro ($29/mo) | Enterprise ($99/mo) |
-|---|---|---|---|
-| Blueprints | 1/month | Unlimited | Unlimited |
-| Architecture Sections | 3 (preview rest) | All 14 | All 14 + quarterly review |
-| Tools | Basic | 200+ | 200+ custom |
-| Compliance | Status only | Full report | Audit-ready PDF |
-| Tool Links | — | Direct links to docs & downloads | Direct links + custom |
-| Support | — | Email (48hr) | Priority (4hr) + monthly call |
+| | Free | Single Report | Pro ($29/mo) | Enterprise ($99/mo) |
+|---|---|---|---|---|
+| Blueprints | 1/month | 1 full (all 14 sections) | Unlimited | Unlimited |
+| Architecture Sections | 3 (preview rest) | All 14 | All 14 | All 14 + quarterly review |
+| Tools | Basic | 200+ | 200+ | 200+ custom |
+| Compliance | Status only | Full report | Full report | Audit-ready PDF |
+| Tool Links | — | — | Direct links to docs & downloads | Direct links + custom |
+| Support | — | — | Email (48hr) | Priority (4hr) + monthly call |
+| Price | $0 | $99 one-time | $29/month | $99/month |
 
 ---
 

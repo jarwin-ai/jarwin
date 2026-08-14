@@ -32,16 +32,17 @@
 
 ## Plans
 
-| Feature | Free | Pro ($29/mo) | Enterprise ($99/mo) |
-|---------|------|-------------|---|
-| Blueprints | 1/month | Unlimited | Unlimited |
-| Architecture Sections | 3 unlocked (preview rest) | All 14 full | All 14 + quarterly review |
-| Tools | Basic | 200+ | 200+ custom |
-| Compliance | Status only | Full details | Audit-ready PDF |
-| Cost Analysis | Total only | Per-service breakdown | + optimization advice |
-| Tool Links | — | Direct links to docs & downloads | Direct links + custom |
-| Report Download | — | JSON | JSON + PDF |
-| Support | — | Email (48hr) | Priority (4hr) + 30-min call/month |
+| Feature | Free | Single Report | Pro ($29/mo) | Enterprise ($99/mo) |
+|---------|------|-------------|-------------|---|
+| Blueprints | 1/month | 1 full (all 14) | Unlimited | Unlimited |
+| Architecture Sections | 3 (preview rest) | All 14 | All 14 | All 14 + quarterly review |
+| Tools | Basic | 200+ | 200+ | 200+ custom |
+| Compliance | Status only | Full report | Full report | Audit-ready PDF |
+| Cost Analysis | Total only | Per-service | Per-service | + optimization advice |
+| Tool Links | — | — | Direct links | Direct links + custom |
+| Report Download | — | JSON | JSON | JSON + PDF |
+| Support | — | — | Email (48hr) | Priority (4hr) + 30-min call/month |
+| Price | $0 | $99 one-time | $29/month | $99/month |
 
 ---
 
