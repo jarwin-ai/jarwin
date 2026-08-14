@@ -444,11 +444,12 @@ def display_landing():
         </div>""", unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("### How Jarwin AI works")
+    st.markdown('<h3 style="margin-top:1.5rem;">How Jarwin AI Works</h3>', unsafe_allow_html=True)
     st.markdown("""
     1. **Tell us about your company** — industry, team size, budget, compliance needs
     2. **Jarwin AI analyzes** and designs your complete architecture
     3. **Get your blueprint** — phased roadmap, tool recommendations, compliance report, cost analysis
+    4. **Already have a stack?** — find where you're overspending with OSS vs Licensed TCO comparison
     """)
 
 
