@@ -38,6 +38,11 @@ st.markdown("""
     footer {visibility: hidden;}
     header {visibility: hidden;}
     
+    /* Reduce top padding */
+    .block-container {
+        padding-top: 1rem !important;
+    }
+    
     /* Main header */
     .main-header {
         font-size: 3.2rem;
@@ -280,6 +285,8 @@ def main():
     
     # Sidebar - Input Form
     with st.sidebar:
+        st.markdown('<p style="font-size:1.5rem;font-weight:800;margin-bottom:0.5rem;"><span style="color:#f1f5f9;">Jarwin</span> <span style="background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">AI</span></p>', unsafe_allow_html=True)
+        st.markdown("---")
         st.markdown("### 🏢 About Your Company")
         
         industry = st.selectbox(
@@ -476,6 +483,8 @@ def run_chat_mode():
     
     # Sidebar: Chat history + help
     with st.sidebar:
+        st.markdown('<p style="font-size:1.5rem;font-weight:800;margin-bottom:0.5rem;"><span style="color:#f1f5f9;">Jarwin</span> <span style="background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">AI</span></p>', unsafe_allow_html=True)
+        st.markdown("---")
         st.markdown("### 📌 Quick Commands")
         st.caption("Try typing these:")
         st.caption("• generate fintech 20 engineers")
