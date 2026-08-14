@@ -419,14 +419,6 @@ def main():
 def display_landing():
     """Show landing page when no blueprint generated yet."""
 
-    # Show saved companies
-    companies = list_companies()
-    if companies:
-        st.markdown("### 📂 Previous Sessions")
-        for comp in companies[:3]:
-            st.caption(f"• {comp['name']} (last: {comp['updated_at'][:10]})")
-        st.markdown("---")
-
     col1, col2, col3 = st.columns(3)
     
     with col1:
