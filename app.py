@@ -40,7 +40,10 @@ st.markdown("""
     
     /* Reduce top padding */
     .block-container {
-        padding-top: 1rem !important;
+        padding-top: 0.5rem !important;
+    }
+    [data-testid="stAppViewBlockContainer"] {
+        padding-top: 0.5rem !important;
     }
     
     /* Main header */
@@ -127,11 +130,21 @@ st.markdown("""
     }
     [data-testid="collapsedControl"] {
         display: none !important;
+        visibility: hidden !important;
     }
     [data-testid="stSidebar"][aria-expanded="false"] {
         display: block !important;
         min-width: 250px !important;
         transform: none !important;
+    }
+    section[data-testid="stSidebar"] > div:first-child {
+        padding-top: 1rem;
+    }
+    button[kind="header"] {
+        display: none !important;
+    }
+    .css-1544g2n {
+        padding-top: 1rem;
     }
     
     /* Tabs */
