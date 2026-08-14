@@ -252,7 +252,7 @@ def main():
             return
     
     # Mode selection
-    mode = st.radio("Mode", ["💬 Chat Mode", "📋 Quick Mode (Form)"], horizontal=True, label_visibility="collapsed")
+    mode = st.radio("Mode", ["📋 Quick Mode (Form)", "💬 Chat Mode"], horizontal=True, label_visibility="collapsed")
     
     if mode == "💬 Chat Mode":
         run_chat_mode()
@@ -499,15 +499,26 @@ def run_chat_mode():
 
 I don't just suggest tools. I design your **entire technology + operations stack** — infrastructure, DevOps, security, team structure, project management, analytics, compliance, and more.
 
-**Tell me about your company:**
-- What **industry** are you in?
-- How big is your **team**?
-- What's your **monthly budget**?
-- Any **compliance** needs (HIPAA, PCI-DSS, SOC2)?
+---
 
-Or describe what you're building — I'll design everything you need to launch and scale.
+📌 **Quick Guide (Rule-Based Mode — Free)**
 
-💡 *Say "generate" when ready for your complete blueprint (14 sections).*"""
+This chat uses keyword matching to answer your questions. For full AI-powered conversations, upgrade to Pro.
+
+**What you can ask:**
+- `"which cloud for fintech?"` → Cloud comparison
+- `"PostgreSQL vs MySQL?"` → Database comparison  
+- `"what about HIPAA?"` → Compliance guidance
+- `"best monitoring tool?"` → Monitoring recommendations
+- `"microservices or monolith?"` → Architecture patterns
+- `"how much will it cost?"` → Cost breakdown by budget
+
+**To generate your full blueprint, type something like:**
+- `"generate fintech 20 engineers $5000 budget aws"`
+- `"generate healthcare startup 8 engineers"`
+- `"generate ecommerce series_a 30 engineers"`
+
+💡 *Include your industry, team size, and budget for best results. Say "generate" to create your 14-section blueprint.*"""
         
         with st.chat_message("assistant", avatar="🏗️"):
             st.markdown(welcome)
