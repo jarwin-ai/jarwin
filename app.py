@@ -170,6 +170,7 @@ def show_pro_upgrade():
         st.write("- Direct links to docs & downloads")
         st.write("- Chat mode access")
         st.write("- Updated tools monthly")
+        st.write("- Stack optimization: find where you're overspending")
         st.write("- Email support (48hr)")
         st.markdown("**$29/month**")
         st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;background:linear-gradient(135deg,#6366f1,#a855f7);color:white;padding:10px 20px;border-radius:8px;font-weight:600;">⭐ Get Pro</span>', unsafe_allow_html=True)
