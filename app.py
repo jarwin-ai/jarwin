@@ -474,24 +474,13 @@ def run_chat_mode():
     
     # Sidebar: Chat history + help
     with st.sidebar:
-        st.markdown("### 💬 Chat Mode")
-        st.markdown("---")
-        
-        if st.button("🗑️ Clear Chat", use_container_width=True):
-            if st.session_state.chat_messages:
-                st.session_state.chat_history_all.append(st.session_state.chat_messages.copy())
-            st.session_state.chat_messages = []
-            st.session_state.chat_context = None
-            st.rerun()
-        
-        st.markdown("---")
         st.markdown("### 📌 Quick Commands")
         st.caption("Try typing these:")
-        st.code("generate fintech 20 engineers $5000", language=None)
-        st.code("which cloud for healthcare?", language=None)
-        st.code("PostgreSQL vs MySQL?", language=None)
-        st.code("what about HIPAA?", language=None)
-        st.code("best monitoring tool?", language=None)
+        st.caption("• generate fintech 20 engineers")
+        st.caption("• which cloud for healthcare?")
+        st.caption("• PostgreSQL vs MySQL?")
+        st.caption("• what about HIPAA?")
+        st.caption("• best monitoring tool?")
         
         if st.session_state.chat_history_all:
             st.markdown("---")
@@ -499,7 +488,15 @@ def run_chat_mode():
             for i, chat in enumerate(reversed(st.session_state.chat_history_all)):
                 user_msgs = [m for m in chat if m["role"] == "user"]
                 if user_msgs:
-                    st.caption(f"Chat {len(st.session_state.chat_history_all) - i}: {user_msgs[0]['content'][:40]}...")
+                    st.caption(f"• {user_msgs[0]['content'][:35]}...")
+        
+        st.markdown("---")
+        if st.button("🗑️ Clear Chat", use_container_width=True):
+            if st.session_state.chat_messages:
+                st.session_state.chat_history_all.append(st.session_state.chat_messages.copy())
+            st.session_state.chat_messages = []
+            st.session_state.chat_context = None
+            st.rerun()
     
     # Display chat messages
     for msg in st.session_state.chat_messages:
