@@ -2,8 +2,7 @@
 
 **Design Your Entire Tech Architecture In 30 Seconds.**
 
-**Website**: [jarwin-landing.vercel.app](https://jarwin-landing.vercel.app)  
-**App**: [jarwin-ai.streamlit.app](https://jarwin-ai.streamlit.app)
+**Website**: [jarwinai.com](https://jarwinai.com)
 
 ---
 
@@ -44,6 +43,7 @@ Plus: OSS vs Licensed comparison with TCO, cost projections, stack optimization,
 | Architecture Sections | 3 (preview rest) | All 14 | All 14 | All 14 + quarterly review |
 | Tools | Basic | 200+ | 200+ | 200+ custom |
 | Compliance | Status only | Full report | Full report | Audit-ready PDF |
+| Stack Optimization | — | — | Find where you're overspending | + optimization advice |
 | Tool Links | — | — | Direct links to docs & downloads | Direct links + custom |
 | Support | — | — | Email (48hr) | Priority (4hr) + monthly call |
 | Price | $0 | $99 one-time | $29/month | $99/month |
@@ -54,6 +54,6 @@ Plus: OSS vs Licensed comparison with TCO, cost projections, stack optimization,
 
 **Business Source License**
 
-You may view this code for learning only.  
-You may NOT use it to build a competing product, sell it, or deploy it commercially.  
+You may view this code for learning only.
+You may NOT use it to build a competing product, sell it, or deploy it commercially.
 For commercial licensing: krishnask921@gmail.com

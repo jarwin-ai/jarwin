@@ -2,8 +2,8 @@
 
 ## Getting Started
 
-1. Visit [jarwin-ai.streamlit.app](https://jarwin-ai.streamlit.app)
-2. Choose **Chat Mode** or **Quick Mode**
+1. Visit [jarwinai.com](https://jarwinai.com)
+2. Choose **Quick Mode** or **Chat Mode**
 3. Provide company details
 4. Get your architecture blueprint
 
@@ -25,7 +25,7 @@
 | 10 | Data Architecture | Databases, caching, warehousing, ETL |
 | 11 | Automation | Terraform, IaC, config management, scaling |
 | 12 | Business Operations | CRM, HR, docs, ServiceNow, communication |
-| 13 | Analytics, BI & Digital Measurement | Product analytics, attribution, CDP, SEO, ad measurement, marketing automation |
+| 13 | Analytics, BI & Digital Measurement | Product analytics, attribution, CDP, SEO, ad measurement |
 | 14 | Compliance & Governance | SOC2, HIPAA, GDPR, ISO27001, audit tools, GRC |
 
 ---
@@ -38,6 +38,7 @@
 | Architecture Sections | 3 (preview rest) | All 14 | All 14 | All 14 + quarterly review |
 | Tools | Basic | 200+ | 200+ | 200+ custom |
 | Compliance | Status only | Full report | Full report | Audit-ready PDF |
+| Stack Optimization | — | — | Find overspending | + optimization advice |
 | Cost Analysis | Total only | Per-service | Per-service | + optimization advice |
 | Tool Links | — | — | Direct links | Direct links + custom |
 | Report Download | — | JSON | JSON | JSON + PDF |
@@ -48,4 +49,5 @@
 
 ## Contact
 
+Website: [jarwinai.com](https://jarwinai.com)
 Email: krishnask921@gmail.com
