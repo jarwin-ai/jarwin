@@ -164,7 +164,7 @@ def show_pro_upgrade():
         st.write("- JSON download")
         st.write("- One-time, no subscription")
         st.markdown("**$99 one-time**")
-        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;background:linear-gradient(135deg,#6366f1,#a855f7);color:white;padding:10px 20px;border-radius:8px;font-weight:600;">📄 Get Report</span>', unsafe_allow_html=True)
+        st.markdown('<span title="Contact: hello@jarwinai.com" style="cursor:pointer;background:linear-gradient(135deg,#6366f1,#a855f7);color:white;padding:10px 20px;border-radius:8px;font-weight:600;">📄 Get Report</span>', unsafe_allow_html=True)
     
     with col3:
         st.markdown("### ⭐ Pro Monthly")
@@ -178,7 +178,7 @@ def show_pro_upgrade():
         st.write("- Stack optimization: find where you're overspending")
         st.write("- Email support (48hr)")
         st.markdown("**$29/month**")
-        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;background:linear-gradient(135deg,#6366f1,#a855f7);color:white;padding:10px 20px;border-radius:8px;font-weight:600;">⭐ Get Pro</span>', unsafe_allow_html=True)
+        st.markdown('<span title="Contact: hello@jarwinai.com" style="cursor:pointer;background:linear-gradient(135deg,#6366f1,#a855f7);color:white;padding:10px 20px;border-radius:8px;font-weight:600;">⭐ Get Pro</span>', unsafe_allow_html=True)
     
     with col4:
         st.markdown("### 🚀 Enterprise")
@@ -189,7 +189,7 @@ def show_pro_upgrade():
         st.write("- Audit-ready PDF reports")
         st.write("- Custom recommendations")
         st.markdown("**$99/month**")
-        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;background:linear-gradient(135deg,#059669,#10b981);color:white;padding:10px 20px;border-radius:8px;font-weight:600;">🚀 Get Enterprise</span>', unsafe_allow_html=True)
+        st.markdown('<span title="Contact: hello@jarwinai.com" style="cursor:pointer;background:linear-gradient(135deg,#059669,#10b981);color:white;padding:10px 20px;border-radius:8px;font-weight:600;">🚀 Get Enterprise</span>', unsafe_allow_html=True)
     
     st.markdown("---")
     
@@ -261,10 +261,10 @@ def main():
     else:
         free_left = max(0, 1 - st.session_state["usage_count"])
         if free_left > 0:
-            st.markdown(f'<p style="font-size:0.85rem;color:#555;">Free Plan — {free_left} blueprint remaining | <span title="Contact: krishnask921@gmail.com" style="cursor:pointer;color:#6366f1;">⭐ Upgrade to Jarwin Pro</span></p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="font-size:0.85rem;color:#555;">Free Plan — {free_left} blueprint remaining | <span title="Contact: hello@jarwinai.com" style="cursor:pointer;color:#6366f1;">⭐ Upgrade to Jarwin Pro</span></p>', unsafe_allow_html=True)
         else:
             st.warning("⚠️ Free limit reached.")
-            st.markdown('<p style="font-size:0.85rem;"><span title="Contact: krishnask921@gmail.com" style="cursor:pointer;color:#6366f1;">⭐ Upgrade to Jarwin Pro</span> for unlimited access</p>', unsafe_allow_html=True)
+            st.markdown('<p style="font-size:0.85rem;"><span title="Contact: hello@jarwinai.com" style="cursor:pointer;color:#6366f1;">⭐ Upgrade to Jarwin Pro</span> for unlimited access</p>', unsafe_allow_html=True)
             show_pro_upgrade()
             return
     
@@ -738,7 +738,7 @@ def display_tools(blueprint):
             # Show locked message for free users
             if locked_count > 0:
                 st.info(f"🔒 **{locked_count} more components** available with Pro — including security, observability, and data tools.")
-                st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade to see all →</span>', unsafe_allow_html=True)
+                st.markdown('<span title="Contact: hello@jarwinai.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade to see all →</span>', unsafe_allow_html=True)
 
 
 def display_compliance(blueprint):
@@ -761,7 +761,7 @@ def display_compliance(blueprint):
     
     if not is_pro:
         st.info("🔒 **Full compliance details** (control mappings, gap analysis, remediation steps) available with Pro.")
-        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade for full compliance report →</span>', unsafe_allow_html=True)
+        st.markdown('<span title="Contact: hello@jarwinai.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade for full compliance report →</span>', unsafe_allow_html=True)
         return
     
     # Pro users see full details
@@ -814,7 +814,7 @@ def display_costs(blueprint):
     
     if not is_pro:
         st.info("🔒 **Detailed cost breakdown** (per-service costs, annual projections, 3-year TCO) available with Pro.")
-        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade for full cost analysis →</span>', unsafe_allow_html=True)
+        st.markdown('<span title="Contact: hello@jarwinai.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade for full cost analysis →</span>', unsafe_allow_html=True)
         return
     
     # Pro: full breakdown
@@ -866,7 +866,7 @@ def display_e2e_architecture(blueprint):
             st.markdown(f"🔒 **{section_meta['icon']} {section_meta['title']}** — _{preview}_")
         
         st.markdown("")
-        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;background:linear-gradient(135deg,#6366f1,#a855f7);color:white;padding:10px 24px;border-radius:8px;font-weight:600;">⭐ Upgrade to Jarwin Pro — Unlock All Sections</span>', unsafe_allow_html=True)
+        st.markdown('<span title="Contact: hello@jarwinai.com" style="cursor:pointer;background:linear-gradient(135deg,#6366f1,#a855f7);color:white;padding:10px 24px;border-radius:8px;font-weight:600;">⭐ Upgrade to Jarwin Pro — Unlock All Sections</span>', unsafe_allow_html=True)
 
 
 def display_full_report(blueprint):
@@ -883,7 +883,7 @@ def display_full_report(blueprint):
     if not is_pro:
         st.markdown("---")
         st.info("🔒 **Full report download** (JSON with all architecture details) available with Pro.")
-        st.markdown('<span title="Contact: krishnask921@gmail.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade to download full report →</span>', unsafe_allow_html=True)
+        st.markdown('<span title="Contact: hello@jarwinai.com" style="cursor:pointer;color:#6366f1;font-weight:600;">⭐ Upgrade to download full report →</span>', unsafe_allow_html=True)
         return
     
     # Pro: full download

@@ -56,4 +56,4 @@ Plus: OSS vs Licensed comparison with TCO, cost projections, stack optimization,
 
 You may view this code for learning only.
 You may NOT use it to build a competing product, sell it, or deploy it commercially.
-For commercial licensing: krishnask921@gmail.com
+For commercial licensing: hello@jarwinai.com

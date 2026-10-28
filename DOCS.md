@@ -50,4 +50,4 @@
 ## Contact
 
 Website: [jarwinai.com](https://jarwinai.com)
-Email: krishnask921@gmail.com
+Email: hello@jarwinai.com
